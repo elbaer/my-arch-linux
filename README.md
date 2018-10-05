@@ -173,7 +173,7 @@
 
 ## GUI
 
-* X installieren `pacman -S xorg xorg-server xorg-xinit xorg-drivers networkmanager`
+* X installieren `pacman -S xorg xorg-server xorg-xinit xorg-drivers networkmanager zip`
 * localectl konfigurieren: `localectl set-x11-keymap ch apple de_mac` (Apple)
 * localectl konfigurieren: `localectl set-x11-keymap ch dell de_nodeadkeys` (Dell)
 * localectl konfigurieren: `localectl set-locale LANG=en_US.UTF-8`
@@ -232,3 +232,22 @@
 * `makepkg PKGBUILD --skippgpcheck --install --needed`
 * `curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur"`
 * `makepkg PKGBUILD --install --needed`
+
+## Oh my zsh mit powerlevelk9 theme
+
+* im Homedirectory `git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh`
+* Droid Sans Nerd Font download: `https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/DroidSansMono.zip`
+* damit alle User die Fonts benutzen können muss ein "globales" Verzeichnis erstellt werden: `sudo mkdir -p /usr/share/fonts/opentype`
+* entpackte Fonts in das erstellte Verzeichnis kopieren
+* Font Cache neu laden: `sudo fc-cache -f -v`
+* Powerlevel9k Repo clonen: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
+* falls für den Terminator noch kein config Verzeichnis existiert muss eines angelegt werden: `mkdir /home/cbaer/.config/terminator`
+* jetzt müssen die Configs aus dem Repo an die entsprechenden Stellen kopiert werden:
+
+  ``` bash
+  cp termintator-config /home/cbaer/.config/terminator/config
+  cp zshrc /home/cbaer/.zshrc
+  cp zshrc-desktop /home/cbaer/.zshrc-desktop
+  ```
+
+* wenn man sich jetzt neu anmeldet, sollte das Ganze schon recht fancy aussehen
