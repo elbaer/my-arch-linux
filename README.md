@@ -251,3 +251,11 @@
   ```
 
 * wenn man sich jetzt neu anmeldet, sollte das Ganze schon recht fancy aussehen
+
+## Pacman
+
+* pacman.conf wird unter /etc abgelegt
+
+## Vim
+
+* .vimrc wird unter ~/ abgelegt
