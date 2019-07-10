@@ -215,6 +215,11 @@
 
 * `setxkbmap -model apple -layout ch -variant de_mac`
 
+### open-vm-tools aktivieren
+
+* `sudo systemctl enable vmtoolsd`
+* `sudo systemctl start vmtoolsd`
+
 ## Applications
 
 * firefox
