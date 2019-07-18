@@ -1,0 +1,160 @@
+---
+
+- name: delete existing directory
+  become: yes
+  file:
+    path: /tmp/git
+    state: absent
+
+- name: recreate directory
+  file:
+    path: /tmp/git
+    state: directory
+
+- name: clone ansible-yay library
+  git:
+    repo: 'https://github.com/mnussbaum/ansible-yay.git'
+    dest: /tmp/git/ansible-yay
+
+- name: copy yay-library to default ansible location
+  file:
+    path: /tmp/git/ansible-yay/yay
+    dest: /usr/share/ansible
+
+- name: Create ANSIBLE_LIBRARY environment variable
+  become: yes
+  lineinfile:
+    path: /etc/environment
+    line: "ANSIBLE_LIBRARY=/usr/share/ansible"
+
+- name: clone yay
+  git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: /tmp/git/yay
+
+- name: build yay
+  shell: |
+    cd /tmp/git/yay
+    makepkg -si --noconfirm
+
+- name: clone oh-my-zsh
+  git:
+    repo: 'https://github.com/robbyrussell/oh-my-zsh.git'
+    dest: /home/cbaer/.oh-my-zsh 
+  
+- name: create fonts directory
+  become: yes
+  file:
+    path: /usr/share/fonts/opentype
+    state: directory
+    mode: '0755'
+
+- name: Download fonts 
+  become: yes
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/DroidSansMono.zip
+    dest: /usr/share/fonts/opentype/DroidSansMono.zip
+
+- name: Extract font
+  become: yes
+  unarchive:
+    src: /usr/share/fonts/opentype/DroidSansMono.zip
+    dest: /usr/share/fonts/opentype/
+
+- name: reload font cache
+  become: yes
+  command: fc-cache -v -f
+
+- name: update OS
+  yay:
+    update_cache: yes
+    upgrade: yes
+
+- name: install additional tools
+  yay:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - firefox
+    - ttf-dejavu
+    - thunderbird
+    - dolphin
+    - google-chrome
+    - visual-studio-code-bin
+    - plymouth
+    - aic94xx-firmware
+    - wd719x-firmware
+    - keepassxc
+    - rambox
+    - zsh-completions
+    - zsh-syntax-highlighting
+
+- name: regenerate initramfs
+  become: yes
+  command: "mkinitcpio -p linux"
+
+- name: configure plymouth
+  become: yes
+  command: "plymouth-set-default-theme -R spinfinity"
+
+- name: create powerlevel9k theme directory
+  file:
+    path: '/home/{{ username }}/.oh-my-zsh/custom/themes/powerlevel9k'
+    state: directory
+
+- name: clone powerlevel9k repository
+  git:
+    repo: https://github.com/bhilburn/powerlevel9k.git
+    dest: '/home/{{ username }}/.oh-my-zsh/custom/themes/powerlevel9k'
+
+- name: copy zshrc
+  copy:
+    src: zshrc
+    dest: '/home/{{ username }}/.zshrc'
+
+- name: copy zshrc-desktop
+  copy:
+    src: zshrc-desktop
+    dest: '/home/{{ username }}/.zshrc-desktop'
+
+- name: create terminator config dir
+  file:
+    path: '/home/{{ username }}/.config/terminator'
+    state: directory
+
+- name: copy terminator config
+  copy:
+    src: terminator-config
+    dest: '/home/{{ username }}/.config/terminator/config'
+
+- name: copy pacman config
+  become: yes
+  copy:
+    src: pacman.conf
+    dest: /etc
+
+- name: copy vimrc
+  copy:
+    src: vimrc
+    dest: '/home/{{ username }}/.vimrc'
+
+- name: copy pacman mirrorlist
+  become: yes
+  copy:
+    src: pacman-mirrorlist
+    dest: /etc/pacman.d/mirrorlist
+
+- name: create vim colors directory
+  file:
+    path: '/home/{{ username }}/.vim/colors'
+    state: directory
+
+- name: download jelly beans
+  get_url:
+    url: https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim
+    dest: '/home/{{ username }}/.vim/colors/'
+
+- name: copy kwalletrc
+  copy:
+    src: kwalletrc
+    dest: '/home/{{ username }}/.config/kwalletrc'

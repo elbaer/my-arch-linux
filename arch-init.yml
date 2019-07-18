@@ -1,0 +1,8 @@
+---
+
+- name: run on local maschine
+  hosts: localhost 
+  connection: local
+  
+  roles:
+    - base
