@@ -4,4 +4,4 @@
   hosts: vmware
   
   roles:
-    - base
+    - connectiontest

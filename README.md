@@ -71,52 +71,35 @@
 * jetzt erstmal weiter mit der normalen Installation
 
 * Zeitserver setzen: `timedatectl set-ntp true`
-* Bootstrap für das System erstellen: `pacstrap /mnt base base-devel intel-ucode wpa_supplicant dialog`
-* fstab erstellen: `genfstab -U /mnt >> /mnt/etc/fstab`
+* Bootstrap für das System erstellen: `pacstrap /mnt base base-devel intel-ucode wpa_supplicant dialog vim git`
+* fstab erstellen: `genfstab -pU /mnt >> /mnt/etc/fstab`
 * in das neue System wechseln: `arch-chroot /mnt`
 * Timezone erstellen: `ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime`
-* Hardware Uhr setzen: `hwclock --systohc`
-* Update vom Base: `pacman -Syy & pacman -Syu`
-* VBOX Utils installieren: `pacman -S virtualbox-guest-utils`
-* VMWare Tools installieren: `pacman -S open-vm-tools`
-* VIM installieren: `pacman -S vim`
-* editieren von `/etc/locale.gen --> de_CH.UTF-8 UTF-8 & en_US.UTF-8 UTF-8`
-* aktivieren mittels: `locale-gen`
+* Hardware Uhr setzen: `hwclock --systohc --utc`
+* Update Base: `pacman -Syy & pacman -Syu`
+* SSH installieren: `pacman -S openssh`
+* Python installieren: `pacman -S python`
 * Locale Conf erstellen:
+   $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+   $ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
+   $ locale-gen
+   $ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
-   ````bash
-   vi /etc/locale.conf
-   LANG=en_US.UTF-8
-   ````
+* Keymap & Hostname erstellen:
 
-* Keymap erstellen:
+   $ echo "myhostname" > /etc/hostname
+   $ echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
+   $ echo "FONT=lat9w-16" >> /etc/vconsole.conf
+   $ echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
+   $ echo "127.0.0.1 localhost myhostname" >> /etc/hosts
+   $ echo "127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts
 
-   ````bash
-   vi /etc/vconsole.conf
-   LANG=de_CH-latin1
-   ````
-
-* hostname erstellen:
-
-   ````bash
-   vi /etc/hostname
-   somecoolname
-   ````
-
-* hostname in `/etc/hosts` anpassen
-
-   ````bash
-   127.0.0.1 localhost
-   127.0.1.1 somecoolname.localdomain somecoolname
-   ````
-
-* dhcp Dienst aktivieren: `systemctl enable dhcpcd`
 * mit `passwd` root Passwort setzen
-* `pacman -S sudo openssh zsh bash-completion terminator` installieren
 * ssh Dienst aktivieren: `systemctl enable sshd`
-* User erstellen: `useradd -m -s /bin/zsh USERNAME`
+* dhcp Dienst aktivieren: `systemctl enable dhcpcd`
+* User erstellen: `useradd -m -g users -G wheel $USERNAME`
 * User Passwort setzen: `passwd USERNAME`
-* Sudoers anpassen: `USERNAME ALL=(ALL) ALL`
+* Wheel Group in /etc/sudoers aktivieren: `%wheel ALL=(ALL) ALL`
 
 ## für Encryption
 
@@ -155,7 +138,7 @@
   timeout 3
   ```
 
-* Entrie Datei erstellen: `vim /boot/loader/entries/arch.conf`
+* Entry Datei erstellen: `vim /boot/loader/entries/arch.conf`
 
   ``` bash
   title ANZEIGENAME
@@ -171,19 +154,6 @@
    `exit`
    `reboot`
 
-## GUI
-
-* X installieren `pacman -S xorg xorg-server xorg-xinit xorg-drivers networkmanager zip`
-* localectl konfigurieren: `localectl set-x11-keymap ch apple de_mac` (Apple)
-* localectl konfigurieren: `localectl set-x11-keymap ch dell de_nodeadkeys` (Dell)
-* localectl konfigurieren: `localectl set-locale LANG=en_US.UTF-8`
-* localectl konfigurieren: `localectl set-keymap de_CH-latin1`
-* NetworkManager starten: `systemctl enable NetworkManager`
-
-### Plasma minimal installieren
-
-* Plasma KDE installieren: `pacman -S plasma`
-
 ### Plasma automatisch starten
 
 * im .bash_profile (oder entsprechender Shell) folgendes einfügen
@@ -194,73 +164,9 @@
    fi
    ```
 
-* .xinitrc erstellen
-
-   ``` bash
-   exec startkde
-   ```
-
-* reboot (dann wird nach dem terminal login automatisch Plasma gestartet)
-
-> alternativ kann man auch die beiden Anpassungen in den Files unterlassen und man startet nach dem Login Plasma mit `startx`
-
 ### Plasma normal installieren inklusive Desktop Manager
 
 * Plasma KDE installieren: `pacman -S plasma plasma-meta plasma-wayland-session`
 * Desktop manager installieren: `pacman -S sddm`
 * Desktop manager aktivieren: `systemctl enable sddm`
 * `reboot`
-
-### Keyboard
-
-* `setxkbmap -model apple -layout ch -variant de_mac`
-
-### open-vm-tools aktivieren
-
-* `sudo systemctl enable vmtoolsd`
-* `sudo systemctl start vmtoolsd`
-
-## Applications
-
-* firefox
-* ttf-dejavu
-* thunderbird
-* dolphin
-
-## Pacaur Installation
-
-* `mkdir -p /tmp/pacaur_install`
-* `cd /tmp/pacaur_install`
-* check if packages are installed: `sudo pacman -S binutils make gcc fakeroot pkg-config --noconfirm --needed`
-* `sudo pacman -S expac yajl git --noconfirm --needed`
-* `curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=cower"`
-* `makepkg PKGBUILD --skippgpcheck --install --needed`
-* `curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur"`
-* `makepkg PKGBUILD --install --needed`
-
-## Oh my zsh mit powerlevelk9 theme
-
-* im Homedirectory `git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh`
-* Droid Sans Nerd Font download: `https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/DroidSansMono.zip`
-* damit alle User die Fonts benutzen können muss ein "globales" Verzeichnis erstellt werden: `sudo mkdir -p /usr/share/fonts/opentype`
-* entpackte Fonts in das erstellte Verzeichnis kopieren
-* Font Cache neu laden: `sudo fc-cache -f -v`
-* Powerlevel9k Repo clonen: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
-* falls für den Terminator noch kein config Verzeichnis existiert muss eines angelegt werden: `mkdir /home/cbaer/.config/terminator`
-* jetzt müssen die Configs aus dem Repo an die entsprechenden Stellen kopiert werden:
-
-  ``` bash
-  cp termintator-config /home/cbaer/.config/terminator/config
-  cp zshrc /home/cbaer/.zshrc
-  cp zshrc-desktop /home/cbaer/.zshrc-desktop
-  ```
-
-* wenn man sich jetzt neu anmeldet, sollte das Ganze schon recht fancy aussehen
-
-## Pacman
-
-* pacman.conf wird unter /etc abgelegt
-
-## Vim
-
-* .vimrc wird unter ~/ abgelegt
