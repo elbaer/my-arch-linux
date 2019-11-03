@@ -80,19 +80,22 @@
 * SSH installieren: `pacman -S openssh`
 * Python installieren: `pacman -S python`
 * Locale Conf erstellen:
+   ```
    $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
    $ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
    $ locale-gen
    $ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+   ```
 
 * Keymap & Hostname erstellen:
-
+   ```
    $ echo "myhostname" > /etc/hostname
    $ echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
    $ echo "FONT=lat9w-16" >> /etc/vconsole.conf
    $ echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
    $ echo "127.0.0.1 localhost myhostname" >> /etc/hosts
    $ echo "127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts
+   ```
 
 * mit `passwd` root Passwort setzen
 * ssh Dienst aktivieren: `systemctl enable sshd`
