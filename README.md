@@ -106,6 +106,7 @@
 
 ## für Encryption
 
+* pacman -S linux
 * `/etc/mkinitcpio.conf` anpassen: `HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"`
 * Linux Kernel erzeugen: `mkinitcpio -p linux`
 * `bootctl --path=/boot install`
