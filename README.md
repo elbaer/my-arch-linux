@@ -3,50 +3,48 @@
 * boot from CD
 * configure keymap `loadkeys de_CH-latin1`
 
-## Encryption aktivieren
-
-<https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=2ahUKEwjN7bmDu_LcAhWCHJoKHXQYCBkQwqsBMAN6BAgGEAQ&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DP0GISSpLlVI&usg=AOvVaw3splmYsQGRauamq1RFrtjc>
-
-## Legacy Boot konfigurieren
+## LVM Installation (UEFI)
 
 * configure disk `fdisk -l` or `cfdisk`
 * normalerweise gibt das /dev/sda zurück
    als nächsten muss man die Platte partitionieren
+
    `fdisk /dev/sda`
-* ich nehme folgende Partitionierung vor:
-   `/dev/sda1` - / (root Partion) - 13GB
-   `/dev/sda2` - /boot (boot Partion) - 512MB
-   `/dev/sda3` - SWAP - der ganze Rest
-* im fdisk Menu sind folgende Befehle wichtig:
-   `n - (new) partion -> danach p - (primary) -> dann einfach standardmässig vorgehen; Grösse +13G`
-* nachher müssen die ersten beiden Partitionen noch bootable werden
-   `a -> danach Nummer der Partition`
-* Abschluss mit `w -> speichert die Infos in der Partitionstabelle`
-* jetzt müssen die einzelnen Partitionen formatiert werden
 
-   ````bash
-   mkfs.ext4 /dev/sda1
-   mkfs.ext4 /dev/sda2
-   mkswap /dev/sda3
-   swapon /dev/sda3
-   ````
+* Partitionstabelle erstellen: `gpt`
 
-* als nächsten müssen die Partitionen gemountet werden
+* Partitionierung erfolgt wiefolgt:
+  `/dev/sda1` - 512MB - Bootpartition
+  `/dev/sda2` - Rest
 
-   ````bash
-   mount /dev/sda1 /mnt
+* physical Volume erstellen
+  `pvcreate /dev/sda2`
+
+* Volumegroup erstellen
+  `vgcreate main /dev/sda2`
+
+* logical Volumes erstellen
+  `lvcreate -L XXGB -n swap main` XX - Gigabyte erstellen
+  `lvcreate -l 100%FREE -n root main`
+
+* Partitionen formatieren
+  `mkfs.ext4 /dev/mapper/main-root`
+  `mkswap /dev/mapper/main-swap`
+  `mkfs.fat -F 32 /dev/sda1`
+
+* Mountpoints aktivieren
+
+   ```bash
+   mount /dev/mapper/main-root /mnt
    mkdir /mnt/boot
-   mount /dev/sda2 /mnt/boot
-   ````
+   mount /dev/sda1 /mnt/boot
+   swapon /dev/mapper/main-swap
+   ```
 
-## UEFI Boot konfigurieren
+## Encryption
 
-* die Partiontable muss im Format GPT erstellt werden, dazu einfach `gdisk` aufrufen
-* im Menu mittels `o` eine neue leere GTP Partitiontable erstellen
-* das Disklayout ist das gleiche
-* für die `boot` partition muss aber mit FAT formatiert werden: `mkfs.fat -F 32 /dev/sdaX`
-
-## use Encryption
+* Encryption aktivieren
+<https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=2ahUKEwjN7bmDu_LcAhWCHJoKHXQYCBkQwqsBMAN6BAgGEAQ&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DP0GISSpLlVI&usg=AOvVaw3splmYsQGRauamq1RFrtjc>
 
 * Festplatte wird so partitioniert wie für UEFI
 * die Hauptpartition verschlüsseln: `cryptsetup -c aes-xts-plain -y -s 512 luksFormat /dev/sda2`
@@ -68,33 +66,37 @@
    swapon /dev/mapper/main-swap
    ```
 
-* jetzt erstmal weiter mit der normalen Installation
+## Installation
 
 * Zeitserver setzen: `timedatectl set-ntp true`
+* pacman aktualisieren: `pacman -Syy`
+* reflector installieren: `pacman -S reflector`
+* neue Mirrorliste erstellen `reflector -c "Switzerland" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist`
 * Bootstrap für das System erstellen: `pacstrap /mnt base base-devel intel-ucode wpa_supplicant dialog vim git`
 * fstab erstellen: `genfstab -pU /mnt >> /mnt/etc/fstab`
 * in das neue System wechseln: `arch-chroot /mnt`
 * Timezone erstellen: `ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime`
 * Hardware Uhr setzen: `hwclock --systohc --utc`
 * Update Base: `pacman -Syy & pacman -Syu`
-* SSH installieren: `pacman -S openssh`
-* Python installieren: `pacman -S python`
+* diverse Pakete installieren: `pacman -S openssh python dhcpcd`
 * Locale Conf erstellen:
-   ```
-   $ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-   $ echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
-   $ locale-gen
-   $ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+
+   ```bash
+   echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+   echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
+   locale-gen
+   echo "LANG=en_US.UTF-8" >> /etc/locale.conf
    ```
 
 * Keymap & Hostname erstellen:
-   ```
-   $ echo "myhostname" > /etc/hostname
-   $ echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
-   $ echo "FONT=lat9w-16" >> /etc/vconsole.conf
-   $ echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
-   $ echo "127.0.0.1 localhost myhostname" >> /etc/hosts
-   $ echo "127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts
+
+   ```bash
+   echo "myhostname" > /etc/hostname
+   echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
+   echo "FONT=lat9w-16" >> /etc/vconsole.conf
+   echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
+   echo "127.0.0.1 localhost myhostname" >> /etc/hosts
+   echo "127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts
    ```
 
 * mit `passwd` root Passwort setzen
@@ -103,6 +105,7 @@
 * User erstellen: `useradd -m -g users -G wheel $USERNAME`
 * User Passwort setzen: `passwd USERNAME`
 * Wheel Group in /etc/sudoers aktivieren: `%wheel ALL=(ALL) ALL`
+* für den Kernel müssen folgende Pakete installiert werden: `pacman -S linux linux-firmware lvm2`
 
 ## für Encryption
 
@@ -125,13 +128,7 @@
    options  cryptdevice=/dev/sda2:main root=/dev/mapper/main-root resume=/dev/mapper/main-swap lang=de locale=de_DE.UTF-8
    ```
 
-## Legacy Boot installieren
-
-* bootloader installieren: `pacman -S grub os-prober`
-* bootloader für Harddisk aktivieren `grub-install /dev/sda`
-* grub konfigurieren: `grub-mkconfig -o /boot/grub/grub.cfg`
-
-## UEFI Boot installieren
+## UEFI Boot für LVM installieren
 
 * `bootctl install`
 * Loader Conf erstellen: `vim /boot/loader/loader.conf` ggf. die default Einträge entfernen
@@ -147,11 +144,8 @@
   title ANZEIGENAME
   linux /vmlinuz-linux #findet man übrigens im /boot Verzeichnis
   initrd /initramfs-linux.img
-  options root=PARTUUID=[a-z0-9] rw
+  options root=/dev/mapper/root-main resume=/dev/mapper/swap-main rw
   ```
-
-  > Um den Eintrag für die Partions UUID von /dev/sda1 zu bekommen, kann man im vim folgenden Befehl ausführen:
-  > `r !blkid` > Der Output wird dann im aktuellen File dargestellt.
 
 * nach der Installation aus arch-chroot ausloggen und neustarten
    `exit`
