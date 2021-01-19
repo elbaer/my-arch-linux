@@ -1,0 +1,15 @@
+---
+- name: create vim colors directory
+  file:
+    path: '/home/cbaer/.vim/colors'
+    state: directory
+
+- name: download jelly beans
+  get_url:
+    url: https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim
+    dest: '/home/cbaer/.vim/colors/'
+
+- name: copy vimrc
+  copy:
+    src: vimrc
+    dest: '/home/cbaer/.vimrc'

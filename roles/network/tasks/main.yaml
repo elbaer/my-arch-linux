@@ -1,0 +1,21 @@
+---
+- name: install networkmanager
+  shell: yay -S --noconfirm networkmanager network-manager-applet net-tools
+
+- name: install networkmanager plugin for plasma
+  shell: yay -S --noconfirm plasma-nm
+  tags: plasma
+
+- name: deactivate dhcpcd
+  become: yes
+  service:
+    name: dhcpcd
+    state: stopped
+    enabled: no
+
+- name: enable and start networkmananger
+  become: yes
+  service:
+    name: NetworkManager
+    state: started
+    enabled: yes

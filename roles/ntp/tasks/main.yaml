@@ -1,0 +1,31 @@
+---
+- name: install ntp
+  shell: yay -S --noconfirm ntp
+
+- name: Configure swiss metas atomic clocks
+  become: yes
+  copy:
+      src: ntp.conf
+      dest: /etc/
+
+- name: Make sure ntpd is stopped
+  become: yes
+  service:
+      name: ntpd
+      state: stopped
+      enabled: yes
+
+- name: Sync time with swiss ntp metas atomic clock
+  become: yes
+  shell: ntpdate metasntp11.admin.ch
+
+- name: Start ntpd back up
+  become: yes
+  service:
+      name: ntpd
+      state: started
+      enabled: yes
+
+- name: Sync time to hwclock
+  become: yes
+  shell: hwclock --systohc

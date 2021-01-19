@@ -1,0 +1,3 @@
+numlockx &
+vmware-user &
+exec cinnamon-session

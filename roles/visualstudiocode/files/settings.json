@@ -1,0 +1,13 @@
+{
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "workbench.startupEditor": "newUntitledFile",
+    "files.trimTrailingWhitespace": true,
+    "extensions.ignoreRecommendations": false,
+    "explorer.compactFolders": false,
+    "gitlens.views.repositories.branches.layout": "list",
+    "gitlens.codeLens.authors.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.recentChange.enabled": false,
+    "editor.tabSize": 2,
+    "window.titleBarStyle": "custom"
+}
