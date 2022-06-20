@@ -1,0 +1,3 @@
+numlockx &
+vmware-user &
+exec startplasma-x11

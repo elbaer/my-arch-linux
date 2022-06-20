@@ -1,0 +1,14 @@
+---
+- name: install audio
+  shell: yay -S --noconfirm pulseaudio pulseaudio-alsa plasma-pa pavucontrol
+
+- name: install codecs
+  shell: yay -S --noconfirm a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-base-plugins
+
+- name: install audio
+  shell: yay -S --noconfirm plasma-pa
+  tags: plasma
+
+- name: install audio
+  shell: yay -S --noconfirm pavucontrol
+  tags: cinnamon

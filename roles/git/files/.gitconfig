@@ -1,0 +1,13 @@
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[alias]
+    dt = difftool
+    st = status
+    cm = "checkout master"
+    fap = "fetch --all --prune"
+[pull]
+    rebase = false
+[merge "ours"]
+    driver = true

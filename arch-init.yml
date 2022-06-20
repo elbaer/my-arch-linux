@@ -2,6 +2,15 @@
 
 - name: run on local maschine
   hosts: vmware
-  
+
   roles:
-    - base
+    - yay
+    - ntp
+    - audio
+    - zsh
+    - desktop
+    - tools
+    - network
+    - git
+    - vim
+    - visualstudiocode

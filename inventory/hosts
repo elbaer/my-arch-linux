@@ -1,8 +1,7 @@
 all:
   hosts:
     vmware:
-      ansible_host: 172.16.70.138
-      ansible_ssh_private_key_file: deployment-keys/id_rsa_mac
+      ansible_host: 192.168.177.130
       ansible_user: cbaer
 
     localhost:
