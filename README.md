@@ -71,12 +71,14 @@
 * Zeitserver setzen: `timedatectl set-ntp true`
 * pacman aktualisieren: `pacman -Syy`
 * reflector installieren: `pacman -S reflector`
-* neue Mirrorliste erstellen `reflector -c "Switzerland" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist`
-* Bootstrap für das System erstellen: `pacstrap /mnt base base-devel intel-ucode wpa_supplicant dialog vim git`
+* neue Mirrorliste erstellen `reflector -c "Switzerland" -a 6 --sort rate --save /etc/pacman.d/mirrorlist`
+* Bootstrap für das System erstellen: `pacstrap /mnt base base-devel linux linux-firmware intel-ucode wpa_supplicant dialog vim git`
 * fstab erstellen: `genfstab -pU /mnt >> /mnt/etc/fstab`
 * in das neue System wechseln: `arch-chroot /mnt`
+* PC Speaker ausschalten: `rmmode pcspkr`
 * Timezone erstellen: `ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime`
 * Hardware Uhr setzen: `hwclock --systohc --utc`
+* Archlinux GPG Keystore herunterladen: `pacman -S archlinux-keyring`
 * Update Base: `pacman -Syy & pacman -Syu`
 * diverse Pakete installieren: `pacman -S openssh python dhcpcd`
 * Locale Conf erstellen:
@@ -102,7 +104,7 @@
 * mit `passwd` root Passwort setzen
 * ssh Dienst aktivieren: `systemctl enable sshd`
 * dhcp Dienst aktivieren: `systemctl enable dhcpcd`
-* User erstellen: `useradd -m -g users -G wheel $USERNAME`
+* User erstellen: `useradd -mG wheel $USERNAME`
 * User Passwort setzen: `passwd USERNAME`
 * Wheel Group in /etc/sudoers aktivieren: `%wheel ALL=(ALL) ALL`
 * für den Kernel müssen folgende Pakete installiert werden: `pacman -S linux linux-firmware lvm2`
