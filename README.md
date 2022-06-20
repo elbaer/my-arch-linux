@@ -79,6 +79,7 @@
 * Timezone erstellen: `ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime`
 * Hardware Uhr setzen: `hwclock --systohc --utc`
 * Archlinux GPG Keystore herunterladen: `pacman -S archlinux-keyring`
+* Keyserver unter /etc/pacman.d/gnupg/gpg.conf setzen `keyserver hkps://keyserver.ubuntu.com:443`
 * Update Base: `pacman -Syy & pacman -Syu`
 * diverse Pakete installieren: `pacman -S openssh python dhcpcd`
 * Locale Conf erstellen:
