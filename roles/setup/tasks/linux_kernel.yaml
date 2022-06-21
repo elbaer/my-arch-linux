@@ -13,23 +13,28 @@
   shell: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
 
 - name: replace hooks in mkinitcpio.conf
+  become: yes
   lineinfile:
     path: /etc/mkinitcpio.conf
     regexp: '^HOOKS='
     line: 'HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"'
 
 - name: build kernel
+  become: yes
   shell: mkinitcpio -p linux
 
 - name: install bootloader
+  become: yes
   shell: bootctl --path=/boot install
 
 - name: ensure old bootloader conf removed
+  become: yes
   file:
     path: /boot/loader/loader.conf
     state: absent
 
 - name: recreate new bootloader conf
+  become: yes
   template:
     src: loader.conf
     dest: /boot/loader/
@@ -38,6 +43,7 @@
     mode: "u=rwx,g=rx,o=rx"
 
 - name: recreate new entry conf
+  become: yes
   template:
     src: entry.conf
     dest: "/boot/loader/entries/{{ arch.installationname }}.conf"

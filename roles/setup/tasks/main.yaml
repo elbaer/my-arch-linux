@@ -9,7 +9,6 @@
   become: yes
 - import_tasks: yay.yaml
 - import_tasks: linux_kernel.yaml
-  become: yes
 - import_tasks: ntp.yaml
   become: yes
 - import_tasks: pulseaudio.yaml
