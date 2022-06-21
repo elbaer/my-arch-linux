@@ -111,7 +111,7 @@
 * Wheel Group in /etc/sudoers aktivieren: `%wheel ALL=(ALL) ALL`
 * für den Kernel müssen folgende Pakete installiert werden: `pacman -S linux linux-firmware lvm2`
 
-## für Encryption
+## für Encryption
 
 * pacman -S linux lvm2 linux-firmware
 * `/etc/mkinitcpio.conf` anpassen: `HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"`
