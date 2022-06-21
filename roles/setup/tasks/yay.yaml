@@ -1,4 +1,9 @@
 ---
+- name: remove directory
+  file:
+    path: /tmp/git/yay
+    state: absent
+
 - name: clone yay
   git:
     repo: https://aur.archlinux.org/yay.git
