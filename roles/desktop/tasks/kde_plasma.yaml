@@ -1,0 +1,17 @@
+---
+- name: install plasma kde
+  shell: pacman --noconfirm -S plasma-meta
+
+- name: install additional plasma tools
+  shell: pacman --noconfirm -S konsole dolphin kate kdeplasma-addons
+
+- name: install additional fonts
+  shell: yay -S --noconfirm ttf-dejavu ttf-roboto noto-fonts-emoji
+
+- name: install gui tools
+  shell: yay -S --noconfirm google-chrome keepassxc rambox-bin thunderbird meld
+
+- name: copy kwalletrc
+  copy:
+    src: kwalletrc
+    dest: "/home/{{ user.name }}/.config/kwalletrc"

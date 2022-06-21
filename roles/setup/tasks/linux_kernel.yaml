@@ -1,0 +1,40 @@
+---
+- name: install additional packages
+  shell: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
+
+# the drivers are mainly hosted by commiunity project so they have to be installed via yay
+- name: install drivers
+  shell: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
+
+- name: replace hooks in mkinitcpio.conf
+  ansible.builtin.lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^HOOKS='
+    line: 'HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"'
+
+- name: build kernel
+  shell: mkinitcpio -p linux
+
+- name: install bootloader
+  shell: bootctl --path=/boot install
+
+- name: ensure old bootloader conf removed
+  file:
+    path: /boot/loader/loader.conf
+    state: absent
+
+- name: recreate new bootloader conf
+  template:
+    src: loader.conf
+    dest: /boot/loader/
+    owner: root
+    group: root
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: recreate new entry conf
+  template:
+    src: entry.conf
+    dest: "/boot/loader/entries/{{ arch.installationname }}.conf"
+    owner: root
+    group: root
+    mode: "u=rwx,g=rx,o=rx"

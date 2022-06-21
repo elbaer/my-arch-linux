@@ -1,16 +1,17 @@
 ---
 
-- name: run on local maschine
+- name: setup
   hosts: localhost
 
   roles:
-#    - yay
-#    - ntp
-#    - audio
-#    - zsh
-#    - desktop
-#     - tools
-#    - network
-#    - git
-#    - vim
-    - visualstudiocode
+    - setup
+    - desktop
+
+- name: run as local user
+  hosts: localhost
+  remote_user: "{{ user.name }}"
+
+  roles:
+    - postdesktop
+    - zsh
+

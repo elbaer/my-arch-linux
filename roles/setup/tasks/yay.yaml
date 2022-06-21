@@ -1,0 +1,15 @@
+---
+- name: clone yay
+  git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: /tmp/git/yay
+
+- name: build yay
+  shell: |
+    cd /tmp/git/yay
+    makepkg -si --noconfirm
+
+- name: remove build directory
+  file:
+    path: /tmp/git/yay
+    state: absent

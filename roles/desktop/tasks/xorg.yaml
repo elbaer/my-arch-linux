@@ -1,0 +1,14 @@
+---
+- name: install xorg server
+  shell: pacman --noconfirm -S xorg xorg-xinit xorg-server xorg-twm xorg-xclock xf86-input-synaptics xorg-drivers
+
+- name: copy xinit start file for plasma
+  copy:
+    src: .xinitrc-plasma
+    dest: "/home/{{ user.name }}/.xinitrc"
+
+- name: copy xwrapper config
+  become: yes
+  copy:
+    src: Xwrapper.config
+    dest: /etc/X11/Xwrapper.config

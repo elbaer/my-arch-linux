@@ -1,0 +1,4 @@
+---
+- include_tasks: audiocodecs.yaml
+- include_tasks: git.yaml
+- include_tasks: visualstudiocode.yaml

@@ -1,7 +1,0 @@
----
-
-- name: run on local maschine
-  hosts: vmware
-  
-  roles:
-    - connectiontest

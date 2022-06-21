@@ -1,8 +1,0 @@
----
-- name: install/update git
-  shell: yay -S --noconfirm git
-
-- name: create global git config
-  copy:
-    src: .gitconfig
-    dest: "/home/{{ username }}/"

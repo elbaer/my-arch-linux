@@ -1,8 +1,0 @@
----
-
-- name: get list of homedirectory
-  command: "ls -l"
-  register: filelisting
-
-- debug:
-    msg: "{{ filelisting.stdout_lines }}"

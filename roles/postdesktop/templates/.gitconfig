@@ -1,0 +1,22 @@
+[user]
+    name = "{{ git.username }}"
+    email = "{{ git.email }}"
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[alias]
+    dt = difftool
+    st = status
+    cm = "checkout master"
+    fap = "fetch --all --prune"
+[pull]
+    rebase = false
+[merge "ours"]
+    driver = true
+[credential]
+    helper = cache --timeout=3600
+[push]
+    default = simple
+[core]
+	pager = cat
