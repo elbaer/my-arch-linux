@@ -5,6 +5,7 @@
 
 # the drivers are mainly hosted by commiunity project so they have to be installed via yay
 - name: install drivers
+  become: yes
   shell: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
 
 - name: replace hooks in mkinitcpio.conf
