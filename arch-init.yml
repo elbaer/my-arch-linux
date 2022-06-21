@@ -9,7 +9,7 @@
 
 - name: run as local user
   hosts: localhost
-  remote_user: "{{ user.name }}"
+  become_user: "{{ user.name }}"
 
   tasks:
     - name: install yay
