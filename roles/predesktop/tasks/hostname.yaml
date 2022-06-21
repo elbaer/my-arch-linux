@@ -1,6 +1,6 @@
 ---
 - name: set hostname
-  copy:
+  template:
     src: hostname
     dest: /etc/hostname
     owner: root
@@ -8,7 +8,7 @@
     mode: "u=rw,g=r,o=r"
 
 - name: set hosts file
-  copy:
+  template:
     src: hosts
     dest: /etc/hosts
     owner: root

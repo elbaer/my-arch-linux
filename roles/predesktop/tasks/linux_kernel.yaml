@@ -20,7 +20,7 @@
     state: absent
 
 - name: recreate new bootloader conf
-  copy:
+  template:
     src: loader.conf
     dest: /boot/loader/
     owner: root
@@ -28,7 +28,7 @@
     mode: "u=rwx,g=rx,o=rx"
 
 - name: recreate new entry conf
-  copy:
+  template:
     src: entry.conf
     dest: "/boot/loader/entries/{{ arch.installationname }}.conf"
     owner: root

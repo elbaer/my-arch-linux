@@ -5,7 +5,7 @@
     generate_ssh_key: yes
     ssh_key_bits: 2048
     ssh_key_file: .ssh/id_rsa_ansible
-    password: "{{ user.password }}"
+    password: "{{ user.password | password_hash('sha512') }}"
     groups: wheel
 
 - name: modify wheel entry
