@@ -10,6 +10,7 @@
 - name: run as local user
   hosts: localhost
   become_user: "{{ user.name }}"
+  become: false
 
   tasks:
     - name: install yay
