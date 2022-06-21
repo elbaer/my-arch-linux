@@ -14,7 +14,7 @@
       enabled: yes
 
 - name: Sync time with swiss ntp metas atomic clock
-  shell: ntpdate metasntp11.admin.ch
+  shell: ntpdate ntp11.metas.ch
 
 - name: Start ntpd back up
   service:
