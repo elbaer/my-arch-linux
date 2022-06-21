@@ -17,4 +17,4 @@
 - name: set password root User
   user:
     name: root
-    password: "{{ root.password }}"
+    password: "{{ root.password | password_hash('sha512') }}"
