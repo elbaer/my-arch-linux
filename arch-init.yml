@@ -1,11 +1,16 @@
 ---
 
-- name: setup
+- name: tasks running with root privileges
   hosts: localhost
 
   tasks:
     - include_role:
         name: setup
+
+- name: tasks running after setup for real user
+  hosts: localhost
+
+  tasks:
     - include_role:
         name: desktop
     - include_role:
