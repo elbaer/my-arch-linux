@@ -7,3 +7,6 @@
   copy:
     src: kitty.conf
     dest: "/home/{{ user.name }}/.config/kitty/"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"

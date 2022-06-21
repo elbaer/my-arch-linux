@@ -14,4 +14,6 @@
 - import_tasks: pulseaudio.yaml
   become: yes
 - import_tasks: vim.yaml
+  become: yes
 - import_tasks: kitty.yaml
+  become: yes

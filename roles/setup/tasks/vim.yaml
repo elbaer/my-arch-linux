@@ -3,13 +3,22 @@
   file:
     path: "/home/{{ user.name }}/.vim/colors"
     state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rwx,g=rx,o=rx"
 
 - name: download jelly beans
   get_url:
     url: https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim
     dest: "/home/{{ user.name }}/.vim/colors"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"
 
 - name: copy vimrc
   copy:
     src: vimrc
     dest: "/home/{{ user.name }}/.vimrc"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"
