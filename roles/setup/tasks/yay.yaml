@@ -6,6 +6,7 @@
 
 - name: build yay
   become_user: "{{ user.name }}"
+  remote_user: "{{ user.name }}"
   shell: |
     cd /tmp/git/yay
     makepkg -si --noconfirm
