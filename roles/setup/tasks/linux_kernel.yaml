@@ -1,4 +1,9 @@
 ---
+
+- name: test
+  pause:
+    seconds: 10
+
 - name: install additional packages
   become: yes
   shell: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
