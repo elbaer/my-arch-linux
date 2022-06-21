@@ -1,5 +1,6 @@
 ---
 - name: install kitty
+  become: yes
   shell: pacman -S --noconfirm kitty
 
 - name: set kitty config

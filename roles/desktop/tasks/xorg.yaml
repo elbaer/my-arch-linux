@@ -1,5 +1,6 @@
 ---
 - name: install xorg server
+  become: yes
   shell: pacman --noconfirm -S xorg xorg-xinit xorg-server xorg-twm xorg-xclock xf86-input-synaptics xorg-drivers
 
 - name: copy xinit start file for plasma

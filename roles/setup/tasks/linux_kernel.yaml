@@ -7,7 +7,7 @@
   shell: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
 
 - name: replace hooks in mkinitcpio.conf
-  ansible.builtin.lineinfile:
+  lineinfile:
     path: /etc/mkinitcpio.conf
     regexp: '^HOOKS='
     line: 'HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"'

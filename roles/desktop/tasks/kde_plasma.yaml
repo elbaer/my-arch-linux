@@ -1,8 +1,10 @@
 ---
 - name: install plasma kde
+  become: yes
   shell: pacman --noconfirm -S plasma-meta
 
 - name: install additional plasma tools
+  become: yes
   shell: pacman --noconfirm -S konsole dolphin kate kdeplasma-addons
 
 - name: install additional fonts

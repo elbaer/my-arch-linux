@@ -9,7 +9,7 @@
     groups: wheel
 
 - name: modify wheel entry
-  ansible.builtin.lineinfile:
+  lineinfile:
     path: /etc/sudoers
     regexp: '^# %wheel ALL=(ALL:ALL) ALL'
     line: '%wheel ALL=(ALL:ALL) ALL'

@@ -3,21 +3,12 @@
 - name: setup
   hosts: localhost
 
-  roles:
-    - setup
-#    - desktop
-
-- name: run as local user
-  hosts: localhost
-  become_user: "{{ user.name }}"
-  become: false
-
   tasks:
-    - name: install yay
-      include_role:
+    - include_role:
         name: setup
-        tasks_from: yay
- # roles:
- #   - postdesktop
- #   - zsh
-
+    - include_role:
+        name: desktop
+    - include_role:
+        name: extras
+    - include_role:
+        name: zsh

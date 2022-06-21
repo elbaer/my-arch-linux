@@ -7,7 +7,6 @@
   with_items:
     - davidanson.vscode-markdownlint
     - ms-azuretools.vscode-docker
-#    - pkief.material-icon-theme
     - equinusocio.vsc-material-theme
     - equinusocio.vsc-material-theme-icons
     - equinusocio.vsc-community-material-theme

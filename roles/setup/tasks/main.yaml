@@ -1,12 +1,18 @@
 ---
 - import_tasks: keyring.yaml
+  become: yes
 - import_tasks: locale.yaml
+  become: yes
 - import_tasks: users.yaml
+  become: yes
 - import_tasks: hostname.yaml
-#- import_tasks: yay.yaml
-#  remote_user: "{{ user.name }}"
-#- import_tasks: linux_kernel.yaml
-#- import_tasks: ntp.yaml
-#- import_tasks: pulseaudio.yaml
-#- import_tasks: vim.yaml
-#- import_tasks: kitty.yaml
+  become: yes
+- import_tasks: yay.yaml
+- import_tasks: linux_kernel.yaml
+  become: yes
+- import_tasks: ntp.yaml
+  become: yes
+- import_tasks: pulseaudio.yaml
+  become: yes
+- import_tasks: vim.yaml
+- import_tasks: kitty.yaml
