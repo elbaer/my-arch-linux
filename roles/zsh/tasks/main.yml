@@ -30,3 +30,15 @@
   copy:
     src: .p10k.zsh
     dest: '/home/cbaer/.p10k.zsh'
+
+- name: clone oh-my-zsh for root
+  become: yes
+  git:
+    repo: 'https://github.com/robbyrussell/oh-my-zsh.git'
+    dest: /root/.oh-my-zsh
+
+- name: copy zshrc for root
+  become: yes
+  copy:
+    src: .zshrc_root
+    dest: '/root/.zshrc'

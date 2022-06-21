@@ -24,4 +24,4 @@
   shell: yay -S --noconfirm ansible docker git meld
 
 - name: install work tools
-  shell: yay -S --noconfirm google-chrome keepassxc rambox-bin spotify thunderbird
+  shell: yay -S --noconfirm google-chrome keepassxc rambox-bin thunderbird

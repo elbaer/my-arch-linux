@@ -1,0 +1,6 @@
+---
+- import_tasks: keyring.yaml
+- import_tasks: locale.yaml
+- import_tasks: users.yaml
+- import_tasks: hostname.yaml
+- import_tasks: linux_kernel.yaml

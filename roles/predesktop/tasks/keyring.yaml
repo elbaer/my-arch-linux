@@ -1,0 +1,11 @@
+---
+- name: update gpg keyserver
+  lineinfile:
+    line: "keyserver hkps://keyserver.ubuntu.com:443"
+    state: present
+
+- name: install keyring
+  cmd: pacman -S archlinux-keyring
+
+- name: update Arch
+  cmd: pacman -Syyyu

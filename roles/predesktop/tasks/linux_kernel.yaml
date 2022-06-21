@@ -1,0 +1,36 @@
+---
+- name: install additional packages
+  cmd: pacman -S linux linux-firmware linux-headers lvm2
+
+- name: replace hooks in mkinitcpio.conf
+  ansible.builtin.lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^HOOKS='
+    line: 'HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"'
+
+- name: build kernel
+  cmd: mkinitcpio -p linux
+
+- name: install bootloader
+  cmd: bootctl --path=/boot install
+
+- name: ensure old bootloader conf removed
+  file:
+    path: /boot/loader/loader.conf
+    state: absent
+
+- name: recreate new bootloader conf
+  copy:
+    src: loader.conf
+    dest: /boot/loader/
+    owner: root
+    group: root
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: recreate new entry conf
+  copy:
+    src: entry.conf
+    dest: "/boot/loader/entries/{{ arch.installationname }}.conf"
+    owner: root
+    group: root
+    mode: "u=rwx,g=rx,o=rx"

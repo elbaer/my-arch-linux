@@ -72,16 +72,18 @@
 * pacman aktualisieren: `pacman -Syy`
 * reflector installieren: `pacman -S reflector`
 * neue Mirrorliste erstellen `reflector -c "Switzerland" -a 6 --sort rate --save /etc/pacman.d/mirrorlist`
-* Bootstrap für das System erstellen: `pacstrap /mnt base base-devel linux linux-firmware intel-ucode wpa_supplicant dialog vim git`
+* Bootstrap für das System erstellen: `pacstrap /mnt base base-devel linux linux-firmware intel-ucode dialog vim git`
 * fstab erstellen: `genfstab -pU /mnt >> /mnt/etc/fstab`
 * in das neue System wechseln: `arch-chroot /mnt`
 * PC Speaker ausschalten: `rmmode pcspkr`
-* Timezone erstellen: `ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime`
-* Hardware Uhr setzen: `hwclock --systohc --utc`
 * Archlinux GPG Keystore herunterladen: `pacman -S archlinux-keyring`
 * Keyserver unter /etc/pacman.d/gnupg/gpg.conf setzen `keyserver hkps://keyserver.ubuntu.com:443`
 * Update Base: `pacman -Syy & pacman -Syu`
-* diverse Pakete installieren: `pacman -S openssh python dhcpcd`
+* Archlinux GPG Keystore herunterladen: `pacman -S openssh python os-prober networkmanager network-manager-applet iwd`
+* iwd Service starten `systemctl enable --now iwd sshd NetworkManager`
+
+* Timezone erstellen: `ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime`
+* Hardware Uhr setzen: `hwclock --systohc --utc`
 * Locale Conf erstellen:
 
    ```bash
@@ -103,8 +105,7 @@
    ```
 
 * mit `passwd` root Passwort setzen
-* ssh Dienst aktivieren: `systemctl enable sshd`
-* dhcp Dienst aktivieren: `systemctl enable dhcpcd`
+
 * User erstellen: `useradd -mG wheel $USERNAME`
 * User Passwort setzen: `passwd USERNAME`
 * Wheel Group in /etc/sudoers aktivieren: `%wheel ALL=(ALL) ALL`
