@@ -1,5 +1,6 @@
 ---
 - name: remove build directory
+  become: yes
   file:
     path: /tmp/yay
     state: absent
