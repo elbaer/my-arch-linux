@@ -1,6 +1,6 @@
 ---
 - name: install additional packages
-  shell: pacman -S linux linux-firmware linux-headers lvm2
+  shell: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
 
 - name: replace hooks in mkinitcpio.conf
   ansible.builtin.lineinfile:

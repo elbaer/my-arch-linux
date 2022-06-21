@@ -6,7 +6,7 @@
     state: present
 
 - name: install keyring
-  shell: "pacman -S archlinux-keyring"
+  shell: "pacman --noconfirm -S archlinux-keyring"
 
 - name: update Arch
-  shell: "pacman -Syyyu"
+  shell: "pacman --noconfirm -Syyyu"
