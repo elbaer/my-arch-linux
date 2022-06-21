@@ -9,6 +9,6 @@ arch:
     swap: /dev/nvme0n1p4
   installationname: archlinux
   hostname: xxx
-locale: "en_US.UTF-8 UTF-8"
+locale: "en_US.UTF-8"
 keymap: "de_CH-latin1"
 timezone: Europe/Zurich
