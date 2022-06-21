@@ -4,7 +4,7 @@
 - import_tasks: users.yaml
 - import_tasks: hostname.yaml
 - import_tasks: yay.yaml
-  become_user: "{{ user.name }}"
+  remote_user: "{{ user.name }}"
 - import_tasks: linux_kernel.yaml
 - import_tasks: ntp.yaml
 - import_tasks: pulseaudio.yaml
