@@ -5,6 +5,7 @@
     dest: /tmp/git/yay
 
 - name: build yay
+  become: "{{ user.name }}"
   shell: |
     cd /tmp/git/yay
     makepkg -si --noconfirm
