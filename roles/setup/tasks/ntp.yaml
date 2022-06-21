@@ -1,6 +1,6 @@
 ---
 - name: install ntp
-  shell: pacman -S --noconfirm ntp
+  shell: pacman --noconfirm -S ntp
 
 - name: Configure swiss metas atomic clocks
   copy:

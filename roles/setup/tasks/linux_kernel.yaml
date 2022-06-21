@@ -1,5 +1,6 @@
 ---
 - name: install additional packages
+  become: yes
   shell: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
 
 # the drivers are mainly hosted by commiunity project so they have to be installed via yay

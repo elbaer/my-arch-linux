@@ -1,6 +1,6 @@
 ---
 - name: install visual studio code
-  shell: yay -S --noconfirm visual-studio-code-bin
+  shell: yay --noconfirm -S visual-studio-code-bin
 
 - name: install visual studio code plugins
   command: "code --install-extension {{ item }}"

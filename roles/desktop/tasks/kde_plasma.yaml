@@ -8,10 +8,10 @@
   shell: pacman --noconfirm -S konsole dolphin kate kdeplasma-addons
 
 - name: install additional fonts
-  shell: yay -S --noconfirm ttf-dejavu ttf-roboto noto-fonts-emoji
+  shell: yay --noconfirm -S ttf-dejavu ttf-roboto noto-fonts-emoji
 
 - name: install gui tools
-  shell: yay -S --noconfirm google-chrome keepassxc rambox-bin thunderbird meld
+  shell: yay --noconfirm -S google-chrome keepassxc rambox-bin thunderbird meld
 
 - name: copy kwalletrc
   copy:

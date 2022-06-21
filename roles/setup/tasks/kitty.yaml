@@ -1,7 +1,7 @@
 ---
 - name: install kitty
   become: yes
-  shell: pacman -S --noconfirm kitty
+  shell: pacman --noconfirm -S kitty
 
 - name: set kitty config
   copy:
