@@ -6,7 +6,7 @@
     state: link
 
 - name: set hardwareclock
-  cmd: hwclock --systohc --utc
+  shell: hwclock --systohc --utc
 
 - name: set locale
   locale_gen:
