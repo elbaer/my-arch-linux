@@ -1,6 +1,7 @@
 ---
 - name: update gpg keyserver
   lineinfile:
+    path: /etc/pacman.d/gnupg/gpg.conf
     line: "keyserver hkps://keyserver.ubuntu.com:443"
     state: present
 
