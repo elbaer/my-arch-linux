@@ -1,14 +1,8 @@
 ---
-- name: remove directory
-  become: yes
-  file:
-    path: /tmp/git/yay
-    state: absent
-
 - name: clone yay
   git:
     repo: https://aur.archlinux.org/yay.git
-    dest: /tmp/git/yay
+    dest: /tmp/yay
 
 - name: build yay
   shell: |
@@ -17,5 +11,5 @@
 
 - name: remove build directory
   file:
-    path: /tmp/git/yay
+    path: /tmp/yay
     state: absent
