@@ -1,5 +1,6 @@
 ---
 - name: remove directory
+  become: yes
   file:
     path: /tmp/git/yay
     state: absent
