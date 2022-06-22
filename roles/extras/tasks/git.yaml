@@ -1,7 +1,7 @@
 ---
 - name: create global git config
   become: yes
-  copy:
+  template:
     src: .gitconfig
     dest: "/home/{{ user.name }}/"
     owner: "{{ user.name }}"
