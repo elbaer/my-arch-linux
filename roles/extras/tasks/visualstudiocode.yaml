@@ -19,6 +19,10 @@
     - dotjoshjohnson.xml
 
 - name: update vsc config
+  become: yes
   copy:
     src: settings.json
     dest: "/home/{{ user.name }}/.config/Code/User"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"

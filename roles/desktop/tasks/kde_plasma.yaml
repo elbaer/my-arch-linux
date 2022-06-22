@@ -14,6 +14,10 @@
   shell: yay --noconfirm -S google-chrome keepassxc rambox-bin thunderbird meld
 
 - name: copy kwalletrc
+  become: yes
   copy:
     src: kwalletrc
     dest: "/home/{{ user.name }}/.config/kwalletrc"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"

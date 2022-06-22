@@ -12,33 +12,55 @@
     - root
 
 - name: clone oh-my-zsh
+  become: yes
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: "/home/{{ user.name }}/.oh-my-zsh"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rwX,g=rX,o=rX"
 
 - name: clone powerlevel10k
+  become: yes
   git:
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: "/home/{{ user.name }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rwX,g=rX,o=rX"
 
 - name: copy zshrc
+  become: yes
   template:
     src: zshrc
     dest: "/home/{{ user.name }}/.zshrc"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"
 
 - name: copy powerlevel10k config
+  become: yes
   copy:
     src: p10k.zsh
     dest: "/home/{{ user.name }}/.p10k.zsh"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"
 
 - name: clone oh-my-zsh for root
   become: yes
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: /root/.oh-my-zsh
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rwX,g=rX,o=rX"
 
 - name: copy zshrc for root
   become: yes
   copy:
     src: zshrc_root
     dest: /root/.zshrc
+    owner: "root"
+    group: "root"
+    mode: "u=rw,g=r,o=r"

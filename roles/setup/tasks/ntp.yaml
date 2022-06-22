@@ -4,23 +4,27 @@
 
 - name: Configure swiss metas atomic clocks
   copy:
-      src: ntp.conf
-      dest: /etc/
+    src: ntp.conf
+    dest: /etc/
+    owner: "root"
+    group: "root"
+    mode: "u=rw,g=r,o=r"
+
 
 - name: Make sure ntpd is stopped
   service:
-      name: ntpd
-      state: stopped
-      enabled: yes
+    name: ntpd
+    state: stopped
+    enabled: yes
 
 - name: Sync time with swiss ntp metas atomic clock
   shell: ntpdate ntp11.metas.ch
 
 - name: Start ntpd back up
   service:
-      name: ntpd
-      state: started
-      enabled: yes
+    name: ntpd
+    state: started
+    enabled: yes
 
 - name: Sync time to hwclock
   shell: hwclock --systohc
