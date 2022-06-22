@@ -1,4 +1,4 @@
 ---
-- include_tasks: xorg.yaml
+- import_tasks: xorg.yaml
   become: yes
-- include_tasks: kde_plasma.yaml
+- import_tasks: kde_plasma.yaml
