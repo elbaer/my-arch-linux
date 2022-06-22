@@ -81,10 +81,12 @@
 * Update Base: `pacman -Syy & pacman -Syu`
 * Archlinux GPG Keystore herunterladen: `pacman -S openssh python os-prober networkmanager network-manager-applet iwd`
 * unter /etc/NetworkManager/NetworkManager.conf Eintrag erstellen:
-  ```
+
+  ```[bash]
   [device]
   wifi.backend=iwd
   ```
+
 * iwd Service starten `systemctl enable --now iwd sshd NetworkManager`
 
 * Timezone erstellen: `ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime`
