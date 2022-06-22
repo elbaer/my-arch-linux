@@ -16,18 +16,12 @@
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: "/home/{{ user.name }}/.oh-my-zsh"
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-    mode: "u=rwX,g=rX,o=rX"
 
 - name: clone powerlevel10k
   become: yes
   git:
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: "/home/{{ user.name }}/.oh-my-zsh/custom/themes/powerlevel10k"
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-    mode: "u=rwX,g=rX,o=rX"
 
 - name: copy zshrc
   become: yes
@@ -52,9 +46,6 @@
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: /root/.oh-my-zsh
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-    mode: "u=rwX,g=rX,o=rX"
 
 - name: copy zshrc for root
   become: yes
