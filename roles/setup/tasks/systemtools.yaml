@@ -1,3 +1,17 @@
 ---
 - name: install system tools
   shell: pacman --noconfirm -S cifs-utils cpio nfs-utils gcc gcc-libs glances gzip htop inetutils rpmextract sshpass unzip wget zip arandr bluez bluez-utils net-tools docker
+
+- name: enable system services
+  shell: "systemctl enable --now {{ service }}"
+  loop:
+    - bluetooth
+    - docker
+  loop_control:
+    index_var: service
+
+- name: add docker to user
+  user:
+    name: "{{ user.name }}"
+    groups: docker
+    append: yes

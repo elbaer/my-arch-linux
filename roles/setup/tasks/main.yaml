@@ -17,3 +17,5 @@
   become: yes
 - import_tasks: kitty.yaml
   become: yes
+- import_tasks: systemtools.yaml
+  become: yes
