@@ -75,7 +75,7 @@
 * Bootstrap für das System erstellen: `pacstrap /mnt base base-devel linux linux-firmware intel-ucode dialog vim git`
 * fstab erstellen: `genfstab -pU /mnt >> /mnt/etc/fstab`
 * in das neue System wechseln: `arch-chroot /mnt`
-* PC Speaker ausschalten: `rmmode pcspkr`
+* PC Speaker ausschalten: `rmmod pcspkr`
 * Archlinux GPG Keystore herunterladen: `pacman -S archlinux-keyring`
 * Keyserver unter /etc/pacman.d/gnupg/gpg.conf setzen `keyserver hkps://keyserver.ubuntu.com:443`
 * Update Base: `pacman -Syy & pacman -Syu`
@@ -93,7 +93,6 @@
 
    ```bash
    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-   echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen
    locale-gen
    echo "LANG=en_US.UTF-8" >> /etc/locale.conf
    ```
@@ -103,10 +102,8 @@
    ```bash
    echo "myhostname" > /etc/hostname
    echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
-   echo "FONT=lat9w-16" >> /etc/vconsole.conf
-   echo "FONT_MAP=8859-1_to_uni" >> /etc/vconsole.conf
-   echo "127.0.0.1 localhost myhostname" >> /etc/hosts
-   echo "127.0.1.1 myhostname.localdomain myhostname" >> /etc/hosts
+   echo "127.0.0.1    localhost" >> /etc/hosts
+   echo "127.0.1.1    myhostname.localdomain myhostname" >> /etc/hosts
    ```
 
 * mit `passwd` root Passwort setzen
@@ -114,12 +111,12 @@
 * User erstellen: `useradd -mG wheel $USERNAME`
 * User Passwort setzen: `passwd USERNAME`
 * Wheel Group in /etc/sudoers aktivieren: `%wheel ALL=(ALL) ALL`
-* für den Kernel müssen folgende Pakete installiert werden: `pacman -S linux linux-firmware lvm2`
+* für den Kernel müssen folgende Pakete installiert werden: `pacman -S linux linux-firmware linux-headers lvm2`
 
 ## für Encryption
 
-* pacman -S linux lvm2 linux-firmware
 * `/etc/mkinitcpio.conf` anpassen: `HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"`
+* pacman -S `linux lvm2 linux-firmware linux-headers`
 * Linux Kernel erzeugen: `mkinitcpio -p linux`
 * `bootctl --path=/boot install`
 * `/boot/loader/loader.conf` anpassen:
