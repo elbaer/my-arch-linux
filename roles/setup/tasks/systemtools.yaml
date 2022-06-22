@@ -1,6 +1,6 @@
 ---
 - name: install system tools
-  shell: pacman --noconfirm -S cifs-utils cpio nfs-utils gcc gcc-libs glances gzip htop inetutils rpmextract sshpass unzip wget zip arandr bluez bluez-utils net-tools docker
+  shell: pacman --noconfirm -S cifs-utils cpio ntfs-3g nfs-utils gcc gcc-libs glances gzip htop inetutils rpmextract sshpass unzip wget zip arandr bluez bluez-utils net-tools docker
 
 - name: enable system services
   shell: "systemctl enable --now {{ service }}"
