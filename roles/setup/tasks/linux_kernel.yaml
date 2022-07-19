@@ -37,6 +37,16 @@
     group: root
     mode: "u=rwx,g=rx,o=rx"
 
+- name: recreate new entry conf for encrypted hd
+  become: yes
+  template:
+    src: entry_encrypted.conf
+    dest: "/boot/loader/entries/{{ arch.installationname }}.conf"
+    owner: root
+    group: root
+    mode: "u=rwx,g=rx,o=rx"
+  when: arch.is_encrypted|bool == true
+  
 - name: recreate new entry conf
   become: yes
   template:
@@ -45,3 +55,4 @@
     owner: root
     group: root
     mode: "u=rwx,g=rx,o=rx"
+  when: arch.is_encrypted|bool == false
