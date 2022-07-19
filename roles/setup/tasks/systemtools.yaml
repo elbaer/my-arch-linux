@@ -8,7 +8,7 @@
     - bluetooth
     - docker
   loop_control:
-    index_var: service
+    loop_var: service
 
 - name: add docker to user
   user:
