@@ -1,0 +1,5 @@
+---
+- import_tasks: vmtools.yaml
+  become: yes
+- import_tasks: xorg.yaml
+  become: yes

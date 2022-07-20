@@ -1,13 +1,38 @@
 {
     "terminal.integrated.fontFamily": "MesloLGS NF",
     "workbench.startupEditor": "newUntitledFile",
+    "gitlens.views.repositories.branches.layout": "list",
     "files.trimTrailingWhitespace": true,
     "extensions.ignoreRecommendations": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "explorer.compactFolders": false,
-    "gitlens.views.repositories.branches.layout": "list",
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.currentLine.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
+    "window.menuBarVisibility": "classic",
     "editor.tabSize": 2,
-    "window.titleBarStyle": "custom"
+    "window.titleBarStyle": "custom",
+    "editor.formatOnSave": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.trimFinalNewlines": true,
+    "redhat.telemetry.enabled": true,
+    "yaml.customTags": ["!encrypted/pkcs1-oaep scalar", "!vault scalar"],
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "keep",
+        "gitlens.codeLens.scopes": ["document"],
+        "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+        }
+    },
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "ansible.ansible.useFullyQualifiedCollectionNames": false,
+    "extensions.autoUpdate": "onlyEnabledExtensions",
+    "git.confirmSync": false
 }

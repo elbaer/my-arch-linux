@@ -9,9 +9,9 @@ root:
 arch:
   is_encrypted: False
   partitions:
-    root: /dev/nvme0n1p5
-    swap: /dev/nvme0n1p4
-  installationname: archlinux
+    root: xxx
+    swap: xxx
+  installationname: xxx
   hostname: xxx
 locale: "en_US.UTF-8"
 keymap: "de_CH-latin1"

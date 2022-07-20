@@ -9,6 +9,9 @@
     - include_role:
         name: desktop
     - include_role:
+        name: virtual
+      when: is_vm|bool == true
+    - include_role:
         name: extras
     - include_role:
         name: zsh

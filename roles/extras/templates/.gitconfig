@@ -10,6 +10,9 @@
     st = status
     cm = "checkout master"
     fap = "fetch --all --prune"
+    ll = "log --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat"
+    cb = "log --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat"
+    lg = "log --graph --branches --oneline --decorate --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 [pull]
     rebase = false
 [merge "ours"]
@@ -20,3 +23,5 @@
     default = simple
 [core]
 	pager = cat
+[pager]
+    branch = false

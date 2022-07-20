@@ -1,17 +1,21 @@
 ---
 - name: install system tools
-  shell: pacman --noconfirm -S cifs-utils cpio ntfs-3g nfs-utils gcc gcc-libs glances gzip htop inetutils rpmextract sshpass unzip wget zip arandr bluez bluez-utils net-tools docker
+  shell: pacman --noconfirm -S cifs-utils cpio ntfs-3g nfs-utils gcc gcc-libs glances gzip htop inetutils rpmextract sshpass unzip wget zip arandr bluez bluez-utils net-tools docker numlockx
 
-- name: enable system services
-  shell: "systemctl enable --now {{ service }}"
-  loop:
-    - bluetooth
-    - docker
-  loop_control:
-    loop_var: service
+- name: enable docker service
+  shell: "systemctl enable --now docker"
 
 - name: add docker to user
   user:
     name: "{{ user.name }}"
     groups: docker
     append: yes
+
+- name: install bluetooth (not on vm)
+  block:
+  - name: install bluetooth packages
+    shell: pacman --noconfirm -S bluez bluez-utils
+
+  - name: enable bluetooth service
+    shell: "systemctl enable --now bluetooth"
+  when: is_vm|bool == false

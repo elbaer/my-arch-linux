@@ -11,13 +11,22 @@
   shell: yay --noconfirm -S ttf-dejavu ttf-roboto noto-fonts-emoji
 
 - name: install gui tools
-  shell: yay --noconfirm -S google-chrome keepassxc rambox-bin thunderbird meld
+  shell: yay --noconfirm -S google-chrome keepassxc rambox-bin thunderbird meld packagekit-qt5
 
 - name: copy kwalletrc
   become: yes
   copy:
     src: kwalletrc
     dest: "/home/{{ user.name }}/.config/kwalletrc"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "u=rw,g=r,o=r"
+
+- name: overwrite kde keyboard layout file
+  become: yes
+  copy:
+    src: kxkbrc
+    dest: "/home/{{ user.name }}/.config/kxkbrc"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "u=rw,g=r,o=r"
