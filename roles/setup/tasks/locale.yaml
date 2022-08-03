@@ -24,3 +24,10 @@
     path: /etc/vconsole.conf
     line: "KEYMAP={{ keymap }}"
     create: yes
+
+- name: set LC_ALL locale
+  blockinfile:
+    path: /etc/environment
+    block: |
+      LC_ALL=en_US.UTF-8
+      LANG=en_US.UTF-8
