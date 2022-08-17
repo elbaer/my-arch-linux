@@ -21,7 +21,5 @@
     helper = cache --timeout=3600
 [push]
     default = simple
-[core]
-	pager = cat
 [pager]
     branch = false
