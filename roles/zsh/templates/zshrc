@@ -51,3 +51,14 @@ else
 fi
 
 source $ZSH/oh-my-zsh.sh
+
+function getbranches {
+  curdir=$(pwd)
+  cd ~/enter-your-basedirectory-for-gitprojects-here
+  for directory in $(find . -maxdepth 2 -type d -path '*git' -exec echo {} \;); do
+    basedirectory=$(echo $directory | cut -d'/' -f-2)
+    echo "### $basedirectory ###"
+    git --git-dir=$directory --work-tree=$basedirectory branch
+  done
+  cd $curdir 
+}
