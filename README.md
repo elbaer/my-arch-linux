@@ -14,7 +14,7 @@
 * Partitionstabelle erstellen: `gpt`
 
 * Partitionierung erfolgt wiefolgt:
-  `/dev/sda1` - 512MB - Bootpartition
+  `/dev/sda1` - 512MB - Bootpartition (für UEFI Boot muss der Partitions-Typ auf EFI-System umgestellt werden)
   `/dev/sda2` - Rest
 
 * physical Volume erstellen
