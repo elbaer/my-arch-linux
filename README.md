@@ -78,8 +78,8 @@
 * PC Speaker ausschalten: `rmmod pcspkr`
 * Archlinux GPG Keystore herunterladen: `pacman -S archlinux-keyring`
 * Keyserver unter /etc/pacman.d/gnupg/gpg.conf setzen `keyserver hkps://keyserver.ubuntu.com:443`
-* Update Base: `pacman -Syy & pacman -Syu`
-* Archlinux GPG Keystore herunterladen: `pacman -S openssh python os-prober networkmanager network-manager-applet iwd`
+* Update Base: `pacman -Syy && pacman -Syu`
+* Archlinux Utility Stuff herunterladen: `pacman -S openssh python os-prober networkmanager network-manager-applet iwd`
 * unter /etc/NetworkManager/NetworkManager.conf Eintrag erstellen:
 
   ```[bash]
