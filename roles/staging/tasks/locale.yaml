@@ -6,12 +6,12 @@
     state: link
 
 - name: Set hardwareclock
-  ansible.builtin.shell: hwclock --systohc --utc
+  ansible.builtin.command: hwclock --systohc --utc
   register: output
   changed_when: output.rc == 0
 
 - name: Set locale
-  ansible.builtin.locale_gen:
+  community.general.locale_gen:
     name: "{{ locale }}"
     state: present
 
@@ -19,13 +19,19 @@
   ansible.builtin.lineinfile:
     path: /etc/locale.conf
     line: "LANG={{ locale }}"
-    create: yes
+    create: true
+    owner: root
+    group: root
+    mode: "u=rw,g=rw,o=r"
 
 - name: Keymap
   ansible.builtin.lineinfile:
     path: /etc/vconsole.conf
     line: "KEYMAP={{ keymap }}"
-    create: yes
+    create: true
+    owner: root
+    group: root
+    mode: "u=rw,g=rw,o=r"
 
 - name: Set LC_ALL locale
   ansible.builtin.blockinfile:

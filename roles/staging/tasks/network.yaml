@@ -1,6 +1,6 @@
 ---
 - name: Install network utilities
-  ansible.builtin.shell: "pacman --noconfirm -S networkmanager network-manager-applet iwd"
+  ansible.builtin.command: "pacman --noconfirm -S networkmanager network-manager-applet iwd"
   register: pminstall
   changed_when: pminstall.rc == 0
 
@@ -15,7 +15,7 @@
 - name: Enable NetworkManager & iwd
   ansible.builtin.systemd:
     name: "{{ item }}"
-    enabled: yes
+    enabled: true
     state: stopped
   loop:
     - NetworkManager

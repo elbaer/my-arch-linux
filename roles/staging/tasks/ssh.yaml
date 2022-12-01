@@ -1,13 +1,13 @@
 ---
 - name: Install sshd
-  ansible.builtin.shell: "pacman --noconfirm -S openssh"
+  ansible.builtin.command: "pacman --noconfirm -S openssh"
   register: pminstall
   changed_when: pminstall.rc == 0
 
 - name: Enable ssh
   ansible.builtin.systemd:
     name: "{{ item }}"
-    enabled: yes
+    enabled: true
     state: stopped
   loop:
-    - ssh
+    - sshd
