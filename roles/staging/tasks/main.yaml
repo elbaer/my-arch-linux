@@ -1,11 +1,11 @@
 ---
 - name: Disable pc speaker
-  community.general.modprobe:
-    name: pcspkr
-    state: absent
-#  ansible.builtin.command: "rmmod pcspkr"
-#  register: rmmod
-#  changed_when: rmmod.rc == 0
+  ansible.builtin.template:
+    src: nobeep.conf.j2
+    dest: /etc/modprobe.d/nobeep.conf
+    owner: root
+    group: root
+    mode: "u=rw,g=rw,o=r"
 
 - name: Install packages
   ansible.builtin.command: "pacman --noconfirm -S python os-prober"
