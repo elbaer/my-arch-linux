@@ -1,54 +1,54 @@
 ---
-- name: install additional packages
-  become: yes
+- name: Install additional packages
+  become: true
   shell: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
 
-# the drivers are mainly hosted by commiunity project so they have to be installed via yay
-- name: install drivers
-  shell: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
-
-- name: replace hooks in mkinitcpio.conf (encryption)
-  become: yes
-  lineinfile:
+- name: Replace hooks in mkinitcpio.conf (encryption)
+  become: true
+  ansible.builtin.lineinfile:
     path: /etc/mkinitcpio.conf
-    regexp: '^HOOKS='
+    regexp: "^HOOKS="
     line: 'HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"'
   when: arch.is_encrypted|bool == true
 
-- name: replace hooks in mkinitcpio.conf
-  become: yes
-  lineinfile:
+- name: Replace hooks in mkinitcpio.conf
+  become: true
+  ansible.builtin.lineinfile:
     path: /etc/mkinitcpio.conf
-    regexp: '^HOOKS='
+    regexp: "^HOOKS="
     line: 'HOOKS="base udev autodetect modconf block keyboard keymap lvm2 filesystems fsck"'
   when: arch.is_encrypted|bool == false
 
-- name: build kernel
-  become: yes
-  shell: mkinitcpio -p linux
+- name: Build kernel
+  become: true
+  ansible.builtin.shell: mkinitcpio -p linux
+  register: mkinitcpio
+  changed_when: mkinitcpio.rc == 0
 
-- name: install bootloader
-  become: yes
-  shell: bootctl --path=/boot install
+- name: Install bootloader
+  become: true
+  ansible.builtin.shell: bootctl --path=/boot install
+  register: bootctl
+  changed_when: bootctl.rc == 0
 
-- name: ensure old bootloader conf removed
-  become: yes
-  file:
+- name: Ensure old bootloader conf removed
+  become: true
+  ansible.builtin.file:
     path: /boot/loader/loader.conf
     state: absent
 
-- name: recreate new bootloader conf
-  become: yes
-  template:
+- name: Recreate new bootloader conf
+  become: true
+  ansible.builtin.template:
     src: loader.conf
     dest: /boot/loader/
     owner: root
     group: root
     mode: "u=rwx,g=rx,o=rx"
 
-- name: recreate new entry conf for encrypted hd
-  become: yes
-  template:
+- name: Recreate new entry conf for encrypted hd
+  become: true
+  ansible.builtin.template:
     src: entry_encrypted.conf
     dest: "/boot/loader/entries/{{ arch.installationname }}.conf"
     owner: root
@@ -56,9 +56,9 @@
     mode: "u=rwx,g=rx,o=rx"
   when: arch.is_encrypted|bool == true
 
-- name: recreate new entry conf
-  become: yes
-  template:
+- name: Recreate new entry conf
+  become: true
+  ansible.builtin.template:
     src: entry.conf
     dest: "/boot/loader/entries/{{ arch.installationname }}.conf"
     owner: root

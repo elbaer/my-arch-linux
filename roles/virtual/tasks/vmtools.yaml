@@ -2,7 +2,7 @@
   shell: pacman --noconfirm -S open-vm-tools gtkmm3
 
 - name: enable vmtools and vmware-fuse
-  shell: "systemctl enable --now {{ servicename }}"
+  shell: "systemctl enable {{ servicename }}"
   loop:
     - vmtoolsd.service
     - vmware-vmblock-fuse.service

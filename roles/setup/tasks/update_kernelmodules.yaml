@@ -1,0 +1,12 @@
+---
+# the drivers are mainly hosted by commiunity project so they have to be installed via yay
+- name: Install drivers
+  ansible.builtin.shell: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
+  register: pminstall
+  changed_when: pminstall.rc == 0
+
+- name: Build kernel
+  become: true
+  ansible.builtin.shell: mkinitcpio -p linux
+  register: mkinitcpio
+  changed_when: mkinitcpio.rc == 0

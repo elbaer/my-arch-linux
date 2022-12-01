@@ -1,0 +1,42 @@
+---
+- name: Disable pc speaker
+  community.general.modprobe:
+    name: pcspkr
+    state: absent
+
+- name: Install packages
+  ansible.builtin.shell: "pacman --noconfirm -S python os-prober"
+  register: pminstall
+  changed_when: pminstall.rc == 0
+
+- name: Create keyring
+  ansible.builtin.include_tasks:
+    file: keyring.yaml
+
+- name: Create network
+  ansible.builtin.include_tasks:
+    file: network.yaml
+
+- name: Install ssh
+  ansible.builtin.include_tasks:
+    file: ssh.yaml
+
+- name: Create locale
+  ansible.builtin.include_tasks:
+    file: locale.yaml
+
+- name: Create hostname
+  ansible.builtin.include_tasks:
+    file: hostname.yaml
+
+- name: Create users
+  ansible.builtin.include_tasks:
+    file: users.yaml
+
+- name: Update ntp
+  ansible.builtin.include_tasks:
+    file: ntp.yaml
+
+- name: Update linux-kernel
+  ansible.builtin.include_tasks:
+    file: linux_kernel.yaml

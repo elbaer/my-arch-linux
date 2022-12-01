@@ -1,0 +1,17 @@
+---
+- name: Create user
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    password: "{{ user.password | password_hash('sha512') }}"
+    groups: wheel
+
+- name: Modify wheel entry
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    regexp: "^# %wheel ALL=(ALL:ALL) ALL"
+    line: "%wheel ALL=(ALL:ALL) ALL"
+
+- name: Set password root User
+  ansible.builtin.user:
+    name: root
+    password: "{{ root.password | password_hash('sha512') }}"

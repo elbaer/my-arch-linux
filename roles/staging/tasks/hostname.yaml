@@ -1,14 +1,14 @@
 ---
-- name: set hostname
-  template:
+- name: Set hostname
+  ansible.builtin.template:
     src: hostname
     dest: /etc/hostname
     owner: root
     group: root
     mode: "u=rw,g=r,o=r"
 
-- name: set hosts file
-  template:
+- name: Set hosts file
+  ansible.builtin.template:
     src: hosts
     dest: /etc/hosts
     owner: root

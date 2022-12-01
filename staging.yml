@@ -1,0 +1,9 @@
+---
+
+- name: Stage Arch Linux (use root user)
+  hosts: localhost
+
+  tasks:
+    - name: Install
+      ansible.builtin.include_role:
+        name: setup

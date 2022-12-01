@@ -1,0 +1,29 @@
+---
+- name: Install ntp
+  ansible.builtin.shell: pacman --noconfirm -S ntp
+  register: pminstall
+  changed_when: pminstall.rc == 0
+
+- name: Configure swiss metas atomic clocks
+  ansible.builtin.copy:
+    src: ntp.conf
+    dest: /etc/
+    owner: "root"
+    group: "root"
+    mode: "u=rw,g=r,o=r"
+
+- name: Make sure ntpd is stopped
+  ansible.builtin.service:
+    name: ntpd
+    state: stopped
+    enabled: yes
+
+- name: Sync time with swiss ntp metas atomic clock
+  ansible.builtin.shell: ntpdate ntp11.metas.ch
+  register: ntpdateoutput
+  changed_when: ntpdateoutput.rc == 0
+
+- name: Sync time to hwclock
+  ansible.builtin.shell: hwclock --systohc
+  register: hwclockoutput
+  changed_when: hwclockoutput.rc == 0

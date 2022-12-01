@@ -1,19 +1,19 @@
 user:
-  name: xxx
-  password: xxx
+  name: cbaer
+  password: cbaer
 git:
-  username: xxx
-  email: xxx
+  username: elbaer
+  email: github@christian-baer.ch
 root:
-  password: xxx
+  password: root
 arch:
   is_encrypted: False
   partitions:
-    root: xxx
-    swap: xxx
-  installationname: xxx
-  hostname: xxx
+    root: /dev/sda2
+    swap: /dev/sda3
+  installationname: archlinux
+  hostname: guyfawkes
 locale: "en_US.UTF-8"
 keymap: "de_CH-latin1"
 timezone: Europe/Zurich
-is_vm: False
+is_vm: True
