@@ -1,8 +1,11 @@
 ---
 - name: Disable pc speaker
-  ansible.builtin.command: "rmmod pcspkr"
-  register: rmmod
-  changed_when: rmmod.rc == 0
+  community.general.modprobe:
+    name: pcspkr
+    state: absent
+#  ansible.builtin.command: "rmmod pcspkr"
+#  register: rmmod
+#  changed_when: rmmod.rc == 0
 
 - name: Install packages
   ansible.builtin.command: "pacman --noconfirm -S python os-prober"
