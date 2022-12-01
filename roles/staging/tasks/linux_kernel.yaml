@@ -1,7 +1,7 @@
 ---
 - name: Install additional packages
   become: true
-  shell: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
+  ansible.builtin.command: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
 
 - name: Replace hooks in mkinitcpio.conf (encryption)
   become: true
@@ -21,13 +21,13 @@
 
 - name: Build kernel
   become: true
-  ansible.builtin.shell: mkinitcpio -p linux
+  ansible.builtin.command: mkinitcpio -p linux
   register: mkinitcpio
   changed_when: mkinitcpio.rc == 0
 
 - name: Install bootloader
   become: true
-  ansible.builtin.shell: bootctl --path=/boot install
+  ansible.builtin.command: bootctl --path=/boot install
   register: bootctl
   changed_when: bootctl.rc == 0
 
