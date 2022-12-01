@@ -1,8 +1,8 @@
 ---
 - name: Install network utilities
   ansible.builtin.command: "pacman --noconfirm -S networkmanager network-manager-applet iwd"
-  register: pminstall
-  changed_when: pminstall.rc == 0
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
 - name: Set network backend
   ansible.builtin.template:

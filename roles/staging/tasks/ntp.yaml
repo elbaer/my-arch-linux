@@ -1,8 +1,8 @@
 ---
 - name: Install ntp
   ansible.builtin.command: pacman --noconfirm -S ntp
-  register: pminstall
-  changed_when: pminstall.rc == 0
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
 - name: Configure swiss metas atomic clocks
   ansible.builtin.template:
@@ -20,10 +20,10 @@
 
 - name: Sync time with swiss ntp metas atomic clock
   ansible.builtin.command: ntpdate ntp11.metas.ch
-  register: ntpdateoutput
-  changed_when: ntpdateoutput.rc == 0
+  register: ntpdate
+  changed_when: ntpdate.rc == 0
 
 - name: Sync time to hwclock
   ansible.builtin.command: hwclock --systohc
-  register: hwclockoutput
-  changed_when: hwclockoutput.rc == 0
+  register: hwclock
+  changed_when: hwclock.rc == 0

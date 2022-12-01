@@ -1,8 +1,8 @@
 ---
 - name: Install sshd
   ansible.builtin.command: "pacman --noconfirm -S openssh"
-  register: pminstall
-  changed_when: pminstall.rc == 0
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
 - name: Enable ssh
   ansible.builtin.systemd:

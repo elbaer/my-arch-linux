@@ -1,0 +1,16 @@
+---
+- name: Install reflector
+  ansible.builtin.command: pacman -S reflector
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
+
+- name: Create new mirrorlist
+  ansible.builtin.command: reflector -c "Switzerland" -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+  register: reflector
+  changed_when: reflector.rc == 0
+
+- name: Remove rsync Entries from new mirrorlist
+  ansible.builtin.lineinfile:
+  path: /etc/pacman.d/mirrorlist
+  regexp: "^Server = rsync:.*$"
+  state: absent

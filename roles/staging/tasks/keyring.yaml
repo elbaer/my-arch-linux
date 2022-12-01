@@ -7,10 +7,10 @@
 
 - name: Install keyring
   ansible.builtin.command: "pacman --noconfirm -S archlinux-keyring"
-  register: pminstall
-  changed_when: pminstall.rc == 0
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
 - name: Update arch to retrieve new/missing keys
   ansible.builtin.command: "pacman --noconfirm -Syyyu"
-  register: pmupdate
-  changed_when: pmupdate.rc == 0
+  register: pacmanupdate
+  changed_when: pacmanupdate.rc == 0

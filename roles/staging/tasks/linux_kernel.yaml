@@ -2,6 +2,8 @@
 - name: Install additional packages
   become: true
   ansible.builtin.command: pacman --noconfirm -S linux linux-firmware linux-headers lvm2
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
 - name: Replace hooks in mkinitcpio.conf (encryption)
   become: true
@@ -9,7 +11,7 @@
     path: /etc/mkinitcpio.conf
     regexp: "^HOOKS="
     line: 'HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems fsck"'
-  when: arch.is_encrypted|bool == true
+  when: arch.is_encrypted
 
 - name: Replace hooks in mkinitcpio.conf
   become: true
@@ -17,7 +19,7 @@
     path: /etc/mkinitcpio.conf
     regexp: "^HOOKS="
     line: 'HOOKS="base udev autodetect modconf block keyboard keymap lvm2 filesystems fsck"'
-  when: arch.is_encrypted|bool == false
+  when: arch.is_encrypted
 
 - name: Build kernel
   become: true
@@ -54,7 +56,7 @@
     owner: root
     group: root
     mode: "u=rwx,g=rx,o=rx"
-  when: arch.is_encrypted|bool == true
+  when: arch.is_encrypted
 
 - name: Recreate new entry conf
   become: true
@@ -64,4 +66,4 @@
     owner: root
     group: root
     mode: "u=rwx,g=rx,o=rx"
-  when: arch.is_encrypted|bool == false
+  when: arch.is_encrypted

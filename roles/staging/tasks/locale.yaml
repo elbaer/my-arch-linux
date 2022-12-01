@@ -7,8 +7,8 @@
 
 - name: Set hardwareclock
   ansible.builtin.command: hwclock --systohc --utc
-  register: output
-  changed_when: output.rc == 0
+  register: hwclock
+  changed_when: hwclock.rc == 0
 
 - name: Set locale
   community.general.locale_gen:

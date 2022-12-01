@@ -9,8 +9,8 @@
 
 - name: Install packages
   ansible.builtin.command: "pacman --noconfirm -S python os-prober"
-  register: pminstall
-  changed_when: pminstall.rc == 0
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
 - name: Create keyring
   ansible.builtin.include_tasks:
