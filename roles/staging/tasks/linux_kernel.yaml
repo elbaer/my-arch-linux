@@ -19,7 +19,7 @@
     path: /etc/mkinitcpio.conf
     regexp: "^HOOKS="
     line: 'HOOKS="base udev autodetect modconf block keyboard keymap lvm2 filesystems fsck"'
-  when: arch.is_encrypted
+  when: not arch.is_encrypted
 
 - name: Build kernel
   become: true
@@ -43,7 +43,7 @@
   become: true
   ansible.builtin.template:
     src: loader.conf
-    dest: /boot/loader/
+    dest: /boot/loader/loader.conf
     owner: root
     group: root
     mode: "u=rwx,g=rx,o=rx"
@@ -66,4 +66,4 @@
     owner: root
     group: root
     mode: "u=rwx,g=rx,o=rx"
-  when: arch.is_encrypted
+  when: not arch.is_encrypted
