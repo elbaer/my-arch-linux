@@ -7,6 +7,10 @@
     group: root
     mode: "u=rw,g=rw,o=r"
 
+- name: Use reflector for new mirrorlist
+  ansible.builtin.include_tasks:
+    file: reflector.yaml
+
 - name: Install packages
   ansible.builtin.command: "pacman --noconfirm -S python os-prober"
   register: pacmaninstall
