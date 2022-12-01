@@ -5,12 +5,12 @@
   changed_when: pminstall.rc == 0
 
 - name: Configure swiss metas atomic clocks
-  ansible.builtin.copy:
-    src: ntp.conf
-    dest: /etc/
+  ansible.builtin.template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
     owner: "root"
     group: "root"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"
 
 - name: Make sure ntpd is stopped
   ansible.builtin.service:

@@ -1,16 +1,16 @@
 user:
   name: cbaer
-  password: cbaer
+  password: xxx
 git:
   username: elbaer
   email: github@christian-baer.ch
 root:
-  password: root
+  password: xxx
 arch:
   is_encrypted: False
   partitions:
-    root: /dev/sda2
-    swap: /dev/sda3
+    root: xxx
+    swap: xxx
   installationname: archlinux
   hostname: guyfawkes
 locale: "en_US.UTF-8"
