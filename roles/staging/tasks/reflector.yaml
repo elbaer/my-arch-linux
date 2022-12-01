@@ -1,6 +1,6 @@
 ---
 - name: Install reflector
-  ansible.builtin.command: pacman -S reflector
+  ansible.builtin.command: pacman --noconfirm -S reflector
   register: pacmaninstall
   changed_when: pacmaninstall.rc == 0
 
