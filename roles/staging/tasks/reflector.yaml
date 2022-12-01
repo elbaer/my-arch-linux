@@ -11,6 +11,6 @@
 
 - name: Remove rsync Entries from new mirrorlist
   ansible.builtin.lineinfile:
-  path: /etc/pacman.d/mirrorlist
-  regexp: "^Server = rsync:.*$"
-  state: absent
+    path: /etc/pacman.d/mirrorlist
+    regexp: "^Server = rsync:.*$"
+    state: absent
