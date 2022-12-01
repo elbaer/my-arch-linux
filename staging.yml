@@ -6,4 +6,4 @@
   tasks:
     - name: Install
       ansible.builtin.include_role:
-        name: setup
+        name: staging
