@@ -1,7 +1,7 @@
 ---
 - name: Disable pc speaker
   ansible.builtin.template:
-    src: nobeep.conf.j2
+    src: nobeep.conf
     dest: /etc/modprobe.d/nobeep.conf
     owner: root
     group: root

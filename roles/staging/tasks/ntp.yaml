@@ -6,7 +6,7 @@
 
 - name: Configure swiss metas atomic clocks
   ansible.builtin.template:
-    src: ntp.conf.j2
+    src: ntp.conf
     dest: /etc/ntp.conf
     owner: "root"
     group: "root"
