@@ -1,0 +1,11 @@
+---
+- name: Update pacman cache
+  become: true
+  ansible.builtin.command: pacman -Syy
+  register: pacman
+  changed_when: pacman.rc == 0
+
+- name: Update yay cache
+  ansible.builtin.command: yay -Syy
+  register: yay
+  changed_when: yay.rc == 0

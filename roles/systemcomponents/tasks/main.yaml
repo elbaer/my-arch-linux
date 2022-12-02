@@ -3,6 +3,10 @@
   ansible.builtin.import_tasks:
     file: yay.yaml
 
+- name: Update Cache
+  ansible.builtin.import_tasks:
+    file: update_cache.yaml
+
 - name: Setup Pulseaudio
   become: true
   ansible.builtin.import_tasks:
