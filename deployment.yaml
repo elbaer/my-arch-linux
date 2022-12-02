@@ -5,7 +5,7 @@
   tasks:
     - name: Install system components
       ansible.builtin.include_role:
-        name: systemcompontens
+        name: systemcomponents
 
     - name: Install desktop
       ansible.builtin.include_role:
