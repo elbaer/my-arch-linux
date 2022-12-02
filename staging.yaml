@@ -1,5 +1,4 @@
 ---
-
 - name: Stage Arch Linux (use root user)
   hosts: localhost
 

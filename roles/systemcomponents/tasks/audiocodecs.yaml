@@ -1,0 +1,5 @@
+---
+- name: Install codecs # noqa yaml[line-length]
+  ansible.builtin.command: yay --noconfirm -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-base-plugins
+  register: yay
+  changed_when: yay.rc == 0

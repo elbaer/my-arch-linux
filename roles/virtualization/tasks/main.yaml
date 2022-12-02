@@ -1,0 +1,8 @@
+---
+- name: Install vm tools
+  become: true
+  ansible.builtin.import_tasks: vmtools.yaml
+
+- name: Install xorg
+  become: true
+  ansible.builtin.import_tasks: xorg.yaml

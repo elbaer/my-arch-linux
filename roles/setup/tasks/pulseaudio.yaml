@@ -1,3 +1,0 @@
----
-- name: install audio
-  shell: pacman --noconfirm -S pulseaudio pulseaudio-alsa plasma-pa pulseaudio-bluetooth

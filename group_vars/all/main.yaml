@@ -1,9 +1,9 @@
 user:
-  name: cbaer
+  name: xxxx
   password: xxx
 git:
-  username: elbaer
-  email: github@christian-baer.ch
+  username: xxx
+  email: xxx
 root:
   password: xxx
 arch:
@@ -11,8 +11,8 @@ arch:
   partitions:
     root: xxx
     swap: xxx
-  installationname: archlinux
-  hostname: guyfawkes
+  installationname: xxx
+  hostname: xxx
 locale: "en_US.UTF-8"
 keymap: "de_CH-latin1"
 timezone: Europe/Zurich

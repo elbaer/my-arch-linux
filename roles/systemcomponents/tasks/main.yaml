@@ -1,0 +1,34 @@
+---
+- name: Install yay
+  ansible.builtin.import_tasks:
+    file: yay.yaml
+
+- name: Setup Pulseaudio
+  become: true
+  ansible.builtin.import_tasks:
+    file: pulseaudio.yaml
+
+- name: Add audiocodecs
+  become: true
+  ansible.builtin.import_tasks:
+    file: audiocodecs.yaml
+
+- name: Configure vim
+  become: true
+  ansible.builtin.import_tasks:
+    file: vim.yaml
+
+- name: Install systemtools
+  become: true
+  ansible.builtin.import_tasks:
+    file: systemtools.yaml
+
+- name: Install zsh
+  become: true
+  ansible.builtin.import_tasks:
+    file: zsh.yaml
+
+- name: Update kernelmodules
+  become: true
+  ansible.builtin.import_tasks:
+    file: update_kernelmodules.yaml

@@ -5,7 +5,7 @@
 
 - name: install additional plasma tools
   become: yes
-  shell: pacman --noconfirm -S konsole dolphin kate kdeplasma-addons
+  shell: pacman --noconfirm -S konsole dolphin kate kdeplasma-addons spectacle
 
 - name: install additional fonts
   shell: yay --noconfirm -S ttf-dejavu ttf-roboto noto-fonts-emoji

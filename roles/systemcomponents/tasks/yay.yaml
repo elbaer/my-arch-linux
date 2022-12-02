@@ -1,0 +1,24 @@
+---
+- name: Remove build directory
+  become: true
+  ansible.builtin.file:
+    path: /tmp/yay
+    state: absent
+
+- name: Clone yay # noqa latest[git]
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: /tmp/yay
+
+- name: Build yay
+  ansible.builtin.command: |
+    cd /tmp/yay
+    makepkg -si --noconfirm
+  register: build
+  changed_when: build.rc == 0
+
+- name: Remove build directory
+  become: true
+  ansible.builtin.file:
+    path: /tmp/yay
+    state: absent

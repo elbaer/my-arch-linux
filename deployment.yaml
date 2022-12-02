@@ -1,0 +1,21 @@
+---
+- name: Install sytemcomponents, desktop and tooling
+  hosts: localhost
+
+  tasks:
+    - name: Install system components
+      ansible.builtin.include_role:
+        name: systemcompontens
+
+    - name: Install desktop
+      ansible.builtin.include_role:
+        name: desktop
+
+    - name: Install and configure additional components
+      ansible.builtin.include_role:
+        name: extras
+
+    - name: Install components for virutal environment
+      ansible.builtin.include_role:
+        name: virtualization
+      when: is_vm

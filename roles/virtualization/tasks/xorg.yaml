@@ -1,0 +1,5 @@
+---
+- name: Install xorg vmware packages
+  ansible.builtin.command: pacman --noconfirm -S xf86-input-vmmouse xf86-video-vmware mesa
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0

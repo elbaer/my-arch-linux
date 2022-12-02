@@ -1,0 +1,5 @@
+---
+- name: Install audio
+  ansible.builtin.command: pacman --noconfirm -S pulseaudio pulseaudio-alsa plasma-pa pulseaudio-bluetooth
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0

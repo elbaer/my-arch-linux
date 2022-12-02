@@ -1,24 +1,33 @@
 ---
-- name: create vim colors directory
-  file:
+- name: Create vim colors directory
+  ansible.builtin.file:
     path: "/home/{{ user.name }}/.vim/colors"
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "u=rwx,g=rx,o=rx"
 
-- name: download jelly beans
-  get_url:
+- name: Download jelly beans
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim
     dest: "/home/{{ user.name }}/.vim/colors"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"
 
-- name: copy vimrc
-  copy:
+- name: Copy vimrc
+  ansible.builtin.copy:
     src: vimrc
     dest: "/home/{{ user.name }}/.vimrc"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"
+
+- name: Create symbolic link for vim
+  become: true
+  ansible.builtin.file:
+    src: /usr/bin/vim
+    dest: /usr/bin/vi
+    owner: root
+    group: root
+    state: link
