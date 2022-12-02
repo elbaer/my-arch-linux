@@ -11,7 +11,7 @@
     dest: /tmp/yay
 
 - name: Build yay
-  ansible.builtin.command: |
+  ansible.builtin.shell: |
     cd /tmp/yay
     makepkg -si --noconfirm
   register: build
