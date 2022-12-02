@@ -9,12 +9,10 @@
     file: pulseaudio.yaml
 
 - name: Add audiocodecs
-  become: true
   ansible.builtin.import_tasks:
     file: audiocodecs.yaml
 
 - name: Configure vim
-  become: true
   ansible.builtin.import_tasks:
     file: vim.yaml
 
@@ -24,7 +22,6 @@
     file: systemtools.yaml
 
 - name: Install zsh
-  become: true
   ansible.builtin.import_tasks:
     file: zsh.yaml
 
