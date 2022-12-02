@@ -1,7 +1,9 @@
 ---
-# the drivers are mainly hosted by commiunity project so they have to be installed via yay
-- name: Install drivers
-  ansible.builtin.command: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
+# the drivers are mainly hosted by commiunity project so they have to be
+# installed via yay
+# shell has to be used because the command module does not allow to
+- name: Install drivers # noqa command-instead-of-shell
+  ansible.builtin.shell: yay --noconfirm -S aic94xx-firmware wd719x-firmware upd72020x-fw linux-firmware-qlogic
   register: pminstall
   changed_when: pminstall.rc == 0
 
