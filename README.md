@@ -77,3 +77,5 @@
 * Ansible installieren: `pacman -S ansible`
 * group_vars/all/main.yaml anpassen
 * Staging Playbook ausführe: `ansible-playbook staging.yaml`
+
+## Flatpak als "Container" für Applikationen

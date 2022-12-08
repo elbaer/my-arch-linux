@@ -1,11 +1,14 @@
 ---
-- name: install xorg server
-  shell: pacman --noconfirm -S xorg xorg-xinit xorg-server xorg-twm xorg-xclock xf86-input-synaptics xorg-drivers
+- name: Install xorg components
+  become: true
+  ansible.builtin.command: pacman --noconfirm -S xorg xorg-xinit xorg-server xorg-twm xorg-xclock xf86-input-synaptics xorg-drivers
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
-- name: copy xinit start file for plasma
-  copy:
+- name: Copy xinit start file for plasma
+  ansible.builtin.copy:
     src: .xinitrc-plasma
     dest: "/home/{{ user.name }}/.xinitrc"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"

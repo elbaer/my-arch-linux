@@ -1,4 +1,8 @@
 ---
-- import_tasks: xorg.yaml
-  become: yes
-- import_tasks: kde_plasma.yaml
+- name: Install xorg
+  ansible.builtin.import_tasks:
+    file: xorg.yaml
+
+- name: Install kde
+  ansible.builtin.import_tasks:
+    file: kde_plasma.yaml

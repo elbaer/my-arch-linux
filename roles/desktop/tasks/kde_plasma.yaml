@@ -1,32 +1,38 @@
 ---
-- name: install plasma kde
-  become: yes
-  shell: pacman --noconfirm -S plasma-meta
+- name: Install plasma kde
+  become: true
+  ansible.builtin.command: pacman --noconfirm -S plasma-meta
+  register: pacmaninstall
+  changed_when: pacmaninstall.rc == 0
 
-- name: install additional plasma tools
-  become: yes
-  shell: pacman --noconfirm -S konsole dolphin kate kdeplasma-addons spectacle
+- name: Install additional plasma tools
+  become: true
+  ansible.builtin.command: pacman --noconfirm -S konsole dolphin kate kdeplasma-addons spectacle
+  register: pacmaninstall2
+  changed_when: pacmaninstall2.rc == 0
 
-- name: install additional fonts
-  shell: yay --noconfirm -S ttf-dejavu ttf-roboto noto-fonts-emoji
+- name: Install fonts
+  ansible.builtin.command: yay --noconfirm -S ttf-dejavu ttf-roboto noto-fonts-emoji
+  register: yay
+  changed_when: yay.rc == 0
 
-- name: install gui tools
-  shell: yay --noconfirm -S google-chrome keepassxc rambox-bin thunderbird meld packagekit-qt5
+- name: Install gui tools
+  ansible.builtin.command: yay --noconfirm -S google-chrome keepassxc rambox-bin thunderbird meld packagekit-qt5
+  register: yay
+  changed_when: yay.rc == 0
 
-- name: copy kwalletrc
-  become: yes
-  copy:
+- name: Copy kwalletrc
+  ansible.builtin.copy:
     src: kwalletrc
     dest: "/home/{{ user.name }}/.config/kwalletrc"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"
 
-- name: overwrite kde keyboard layout file
-  become: yes
-  copy:
+- name: Overwrite kde keyboard layout file
+  ansible.builtin.copy:
     src: kxkbrc
     dest: "/home/{{ user.name }}/.config/kxkbrc"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"
