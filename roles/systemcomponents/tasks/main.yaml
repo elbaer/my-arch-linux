@@ -7,8 +7,7 @@
   ansible.builtin.import_tasks:
     file: update_cache.yaml
 
-- name: Setup Pulseaudio
-  become: true
+- name: Setup pulseaudio
   ansible.builtin.import_tasks:
     file: pulseaudio.yaml
 
@@ -21,7 +20,6 @@
     file: vim.yaml
 
 - name: Install systemtools
-  become: true
   ansible.builtin.import_tasks:
     file: systemtools.yaml
 
@@ -30,6 +28,5 @@
     file: zsh.yaml
 
 - name: Update kernelmodules
-  become: true
   ansible.builtin.import_tasks:
     file: update_kernelmodules.yaml

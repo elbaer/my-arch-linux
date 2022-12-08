@@ -1,12 +1,14 @@
 ---
-- name: install visual studio code
-  shell: yay --noconfirm -S visual-studio-code-bin
+- name: Install visual studio code
+  ansible.builtin.command: yay --noconfirm -S visual-studio-code-bin
+  register: yay
+  changed_when: yay.rc == 0
 
-- name: install visual studio code plugins
-  command: "code --install-extension {{ item }}"
-  with_items:
-    - davidanson.vscode-markdownlint
-    - ms-azuretools.vscode-docker
+- name: Install visual studio code plugins
+  ansible.builtin.command: code --install-extension "{{ item }}"
+  register: code
+  changed_when: code.rc == 0
+  loop:
     - equinusocio.vsc-material-theme
     - equinusocio.vsc-material-theme-icons
     - equinusocio.vsc-community-material-theme
@@ -16,21 +18,21 @@
     - wholroyd.jinja
     - ivory-lab.jenkinsfile-support
     - eamodio.gitlens
+    - redhat.ansible
     - dotjoshjohnson.xml
 
-- name: ensure vsc config directory exists
-  become: yes
-  file:
+- name: Ensure vsc config directory exists
+  ansible.builtin.file:
     path: "/home/{{ user.name }}/.config/Code/User"
     state: directory
-    recurse: yes
+    recurse: true
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rwx,g=rx,o=rx"
+    mode: "u=rwx,g=rwx,o=rx"
 
-- name: update vsc config
-  become: yes
-  copy:
+- name: Update vsc config
+  become: true
+  ansible.builtin.copy:
     src: settings.json
     dest: "/home/{{ user.name }}/.config/Code/User"
     owner: "{{ user.name }}"

@@ -1,9 +1,9 @@
 ---
-- name: create global git config
-  become: yes
-  template:
+- name: Create global git config
+  become: true
+  ansible.builtin.template:
     src: .gitconfig
     dest: "/home/{{ user.name }}/"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"

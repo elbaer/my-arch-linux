@@ -1,9 +1,11 @@
 - name: Install vmtool packages
+  become: true
   ansible.builtin.command: pacman --noconfirm -S open-vm-tools gtkmm3
   register: pacmaninstall
   changed_when: pacmaninstall.rc == 0
 
 - name: Enable vmtools and vmware-fuse
+  become: true
   ansible.builtin.systemd:
     name: "{{ servicename }}"
     enabled: true
@@ -17,6 +19,7 @@
   changed_when: systemctl.rc == 0
 
 - name: Add vmware modules in mkinitcpio.conf
+  become: true
   ansible.builtin.lineinfile:
     path: /etc/mkinitcpio.conf
     regexp: "^MODULES="

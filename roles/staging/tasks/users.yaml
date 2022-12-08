@@ -8,8 +8,8 @@
 - name: Modify wheel entry
   ansible.builtin.lineinfile:
     path: /etc/sudoers
-    regexp: "^# %wheel ALL=(ALL:ALL) ALL"
-    line: "%wheel ALL=(ALL:ALL) ALL"
+    regexp: "^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL"
+    line: "%wheel ALL=(ALL:ALL) NOPASSWD: ALL"
 
 - name: Set password root User
   ansible.builtin.user:

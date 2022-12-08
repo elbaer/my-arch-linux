@@ -1,4 +1,12 @@
 ---
-- include_tasks: audiocodecs.yaml
-- include_tasks: git.yaml
-- include_tasks: visualstudiocode.yaml
+- name: Install and configure kitty
+  ansible.builtin.import_tasks:
+    file: kitty.yaml
+
+- name: Install and configure git
+  ansible.builtin.import_tasks:
+    file: git.yaml
+
+- name: Install and configure visual studio code
+  ansible.builtin.import_tasks:
+    file: visualstudiocode.yaml

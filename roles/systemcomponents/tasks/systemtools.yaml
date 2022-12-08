@@ -1,22 +1,26 @@
 ---
 - name: Install system tools # noqa yaml[line-length]
+  become: true
   ansible.builtin.command: pacman --noconfirm -S cifs-utils cpio ntfs-3g nfs-utils gcc gcc-libs glances gzip htop inetutils rpmextract sshpass unzip wget zip arandr bluez bluez-utils net-tools docker numlockx dnsutils
   register: pacmaninstall
   changed_when: pacmaninstall.rc == 0
 
 - name: Add docker group to user
+  become: true
   ansible.builtin.user:
     name: "{{ user.name }}"
     groups: docker
     append: true
 
 - name: Enable docker service
+  become: true
   ansible.builtin.systemd:
     name: docker
     enabled: true
     state: stopped
 
 - name: Install bluetooth (not on vm)
+  become: true
   when: not is_vm
   block:
     - name: Install bluetooth packages

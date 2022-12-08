@@ -1,12 +1,14 @@
 ---
-- name: install kitty
-  become: yes
-  shell: pacman --noconfirm -S kitty
+- name: Install kitty
+  become: true
+  ansible.builtin.command: pacman --noconfirm -S kitty
+  register: pacman
+  changed_when: pacman.rc == 0
 
-- name: set kitty config
-  copy:
+- name: Update kitty config
+  ansible.builtin.copy:
     src: kitty.conf
     dest: "/home/{{ user.name }}/.config/kitty/"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "u=rw,g=r,o=r"
+    mode: "u=rw,g=rw,o=r"

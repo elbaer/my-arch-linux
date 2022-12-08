@@ -76,6 +76,8 @@
 * in das neue System wechseln: `arch-chroot /mnt`
 * Ansible installieren: `pacman -S ansible`
 * group_vars/all/main.yaml anpassen
-* Staging Playbook ausführe: `ansible-playbook staging.yaml`
+* Staging Playbook ausführen: `ansible-playbook staging.yaml`
+* nach dem das Staging Playbook durchgelaufen ist reboot der Maschine
+* Deployment Playbook ausführen: `ansible-playbook deployment.yaml`
 
 ## Flatpak als "Container" für Applikationen

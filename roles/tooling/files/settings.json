@@ -17,22 +17,24 @@
     "security.workspace.trust.untrustedFiles": "open",
     "files.trimFinalNewlines": true,
     "redhat.telemetry.enabled": true,
-    "yaml.customTags": ["!encrypted/pkcs1-oaep scalar", "!vault scalar"],
+    "yaml.customTags": [
+        "!encrypted/pkcs1-oaep scalar",
+        "!vault scalar"
+    ],
     "[yaml]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
         "editor.autoIndent": "keep",
-        "gitlens.codeLens.scopes": ["document"],
+        "gitlens.codeLens.scopes": [
+            "document"
+        ],
         "editor.quickSuggestions": {
-        "other": true,
-        "comments": false,
-        "strings": true
+            "other": true,
+            "comments": false,
+            "strings": true
         }
     },
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
-    },
-    "ansible.ansible.useFullyQualifiedCollectionNames": false,
+    "ansible.ansible.useFullyQualifiedCollectionNames": true,
     "extensions.autoUpdate": "onlyEnabledExtensions",
     "git.confirmSync": false
 }
