@@ -1,11 +1,13 @@
 ---
 - name: Modify wheel entry (without password)
+  become: true
   ansible.builtin.lineinfile:
     path: /etc/sudoers
     regexp: "^%wheel ALL=(ALL:ALL) NOPASSWD: ALL"
     line: "# %wheel ALL=(ALL:ALL) NOPASSWD: ALL"
 
 - name: Modify wheel entry (with password)
+  become: true
   ansible.builtin.lineinfile:
     path: /etc/sudoers
     regexp: "^# %wheel ALL=(ALL:ALL) ALL"

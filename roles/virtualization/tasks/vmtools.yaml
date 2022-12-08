@@ -15,8 +15,6 @@
     - vmware-vmblock-fuse.service
   loop_control:
     loop_var: servicename
-  register: systemctl
-  changed_when: systemctl.rc == 0
 
 - name: Add vmware modules in mkinitcpio.conf
   become: true
