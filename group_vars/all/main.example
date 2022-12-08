@@ -1,0 +1,19 @@
+user:
+  name: _needs_to_be_replaced_
+  password: _needs_to_be_replaced_
+git:
+  username: _needs_to_be_replaced_
+  email: _needs_to_be_replaced_
+root:
+  password: _needs_to_be_replaced_
+arch:
+  is_encrypted: false
+  partitions:
+    root: _needs_to_be_replaced_
+    swap: _needs_to_be_replaced_
+  installationname: _needs_to_be_replaced_
+  hostname: _needs_to_be_replaced_
+locale: "en_US.UTF-8"
+keymap: "de_CH-latin1"
+timezone: Europe/Zurich
+is_vm: true

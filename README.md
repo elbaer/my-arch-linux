@@ -72,9 +72,14 @@
 * reflector installieren: `pacman -S reflector`
 * neue Mirrorliste erstellen `reflector -c "Switzerland" -a 6 --sort rate --save /etc/pacman.d/mirrorlist`
 * Bootstrap für das System erstellen: `pacstrap /mnt base base-devel linux linux-firmware intel-ucode dialog vim git`
+* sollte es Probleme mit den Keys bei der Installation geben:
+  * Archlinux GPG Keystore herunterladen: `pacman -S archlinux-keyring`
+  * Keyserver unter /etc/pacman.d/gnupg/gpg.conf setzen `keyserver hkps://keyserver.ubuntu.com:443`
+  * Update Base: `pacman -Syy && pacman -Syu`
 * fstab erstellen: `genfstab -pU /mnt >> /mnt/etc/fstab`
 * in das neue System wechseln: `arch-chroot /mnt`
 * Ansible installieren: `pacman -S ansible`
+* dieses Repository clonen (z.B. nach /opt/)
 * group_vars/all/main.yaml anpassen
 * Staging Playbook ausführen: `ansible-playbook staging.yaml`
 * nach dem das Staging Playbook durchgelaufen ist reboot der Maschine
